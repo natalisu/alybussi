@@ -1,0 +1,59 @@
+/* BODY & CONTAINER */
+
+body {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    background-color: #f0f0f0;
+    height: 1980px;
+    margin: auto;
+    width: 1080px;
+}
+
+
+/* YLÄBANNERI, KELLO & TIEDOITTEET */
+
+#yla {
+    height: 7em;
+    background-color: #bcbcbc;
+}
+
+#klo {
+    padding-top: 0.2em;
+    font-family: "Inconsolata";
+    font-size: 60px;
+    font-weight: bold;
+    padding-left: 0.7em;
+}
+
+#bus {
+    padding-top: 1.5em !important;
+    padding-right: 2em;
+}
+
+.bustime {
+    font-family: "Inconsolata";
+    font-size: 30px;
+    padding-right: 1em;
+    display: inline;
+}
+
+.tied {
+    height: 2em;
+    background-color: #d3d3d3;
+}
+
+.uvirta {
+    overflow: hidden;
+    padding-top: 0.2em;
+}
+
+
+/* KARTTA */
+
+.kartta {
+    height: 100%;
+}
