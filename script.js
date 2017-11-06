@@ -23,6 +23,9 @@ window.onload = function () {
     startTime();
 }
 
+
+
+
 // UUTISVIRTA
 
 $('.uvirta').marquee({
@@ -37,3 +40,22 @@ $('.uvirta').marquee({
     //true or false - should the marquee be duplicated to show an effect of continues flow
     duplicated: false
 });
+
+
+
+
+// LEAFLET KARTTA
+
+var mymap = L.map('mapid').setView([60.22080349999999, 24.80520709999996], 16);
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 16,
+    id: 'mapbox.streets',
+    style: 'mapbox://styles/mapbox/streets-v10',
+    accessToken: 'pk.eyJ1Ijoia29lbnNoaSIsImEiOiJjajludnExaXQyZ2dnMnFzMmczMWNoMW4yIn0.ksZiBFRbpfKuxbSzDXaJBA'
+}).addTo(mymap);
+
+// markerin lisääminen
+var marker = L.marker([60.22080349999999, 24.80520709999996]).addTo(mymap);
+marker.bindPopup("aaaa").openPopup();
