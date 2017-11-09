@@ -63,3 +63,10 @@ body {
 .nappi-margin {
     margin-top: 60px;
 }
+
+/* BOOTSTRAP NAPIT */
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+     color: black; 
+     background-color: #0000;
+    border-color: #0000; 
+}
