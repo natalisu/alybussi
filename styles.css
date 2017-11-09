@@ -65,8 +65,15 @@ body {
 }
 
 /* BOOTSTRAP NAPIT */
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+.btn-primary, .btn-primary:hover, .btn-primary:active{
      color: black; 
      background-color: #0000;
     border-color: #0000; 
+}
+
+.btn-primary:focus{
+     color: black; 
+     background-color: #0000;
+    border-color: #0000; 
+    box-shadow: inherit;
 }
