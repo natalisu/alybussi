@@ -131,8 +131,14 @@ L.geoJSON(geojsonFeature).addTo(map);
         var otaniemi = {lat: 60.1841396, lng: 24.83008380000001};
 
         map = new google.maps.Map(document.getElementById('map'), {
-          center: otaniemi,
-          zoom: 15
+            center: otaniemi,
+            zoom: 17,
+            zoomControl: false,
+            streetViewControl: false,
+            scrollwheel: false,
+            draggable: false,
+            mapTypeControl: false,
+            fullscreenControl: false
         });
 
         infowindow = new google.maps.InfoWindow();
@@ -140,7 +146,7 @@ L.geoJSON(geojsonFeature).addTo(map);
         service.nearbySearch({
           location: otaniemi,
           radius: 500,
-          type: ['store, restaurant']
+          type: ['bus_station']
         }, callback);
       }
 
