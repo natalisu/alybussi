@@ -46,7 +46,7 @@ $('.uvirta').marquee({
 
 // LEAFLET KARTTA
 
-var map = L.map('map').setView([60.1810352, 24.83190479999996], 17);
+/*var map = L.map('map').setView([60.1810352, 24.83190479999996], 17);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/koenshi/cj9o4wl4g42jk2spcfq4v3eiu/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -62,7 +62,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/koenshi/cj9o4wl4g42jk2spcfq4v3eiu/
     handler.disable();
 });
 $(".leaflet-control-zoom").css("visibility", "hidden");
-*/
+
 
 var point = turf.point(24.83190479999996, 60.180602, {
     "marker-color": "#8E8E8E",
@@ -121,3 +121,46 @@ var geojsonFeature = {
 
 L.geoJSON(geojsonFeature).addTo(map);
 */
+
+//GOOGLE MAPS KARTTA
+
+      var map;
+      var infowindow;
+
+      function initMap() {
+        var otaniemi = {lat: 60.1841396, lng: 24.83008380000001};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: otaniemi,
+          zoom: 15
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: otaniemi,
+          radius: 500,
+          type: ['store, restaurant']
+        }, callback);
+      }
+
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+          }
+        }
+      }
+
+      function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+      }
