@@ -2,78 +2,138 @@
 
 body {
     margin: auto;
-    height: 100%;
-    width: 100%;
+    height: 1980px;
+    width: 1080px;
 }
 
 .container-fluid {
     background-color: #f0f0f0;
-    height: 1980px;
     margin: auto;
-    width: 1080px;
 }
 
 
 /* YLÄBANNERI, KELLO & TIEDOITTEET */
 
+#ylapalkki {
+    height: 200px;
+    width: 100%;
+    z-index: 100 !important;
+    position: relative;
+}
+
 #yla {
-    height: 7em;
-    background-color: #bcbcbc;
+    height: 150px;
+    background-color: #191919;
+    color: #fff;
 }
 
 #klo {
     padding-top: 0.2em;
-    font-family: "Inconsolata";
-    font-size: 60px;
+    font-family: "Barlow";
+    font-size: 80px;
     font-weight: bold;
     padding-left: 0.7em;
+    text-shadow: none;
+    letter-spacing: 5px;
 }
 
 #bus {
-    padding-top: 1.5em !important;
-    padding-right: 2em;
+    padding-top: 3.5em !important;
+    padding-right: 3.5em;
 }
 
 .bustime {
-    font-family: "Inconsolata";
-    font-size: 30px;
+    font-family: "Barlow";
+    font-size: 50px;
     padding-right: 1em;
     display: inline;
+    letter-spacing: 1px;
 }
 
 .tied {
-    height: 2em;
+    height: 50px;
     background-color: #d3d3d3;
+    border-bottom: 1px solid #000;
+    box-shadow: 0 12px 30px -4px rgba(43, 43, 43, 0.4);
+    font-family: "Nunito";
+    letter-spacing: 1px;
 }
 
 .uvirta {
     overflow: hidden;
     padding-top: 0.2em;
+    font-size: 25px;
 }
 
 
-/* KARTTA */
+/* KARTTA & NÄYTÖNSÄÄSTÄJÄ */
+
+#naytons {
+    z-index: 10;
+    position: absolute;
+    width: 1080x !important;
+    height: 1780px !important;
+}
 
 .kartta {
-    height: 100%;
+    height: 1780px;
+}
+
+#map {
+    width: 1080px !important;
 }
 
 /*NAPPIPALKKI*/
+
+.napit {
+    width: 150px;
+}
 
 .nappi-margin {
     margin-top: 60px;
 }
 
-/* BOOTSTRAP NAPIT */
-.btn-primary, .btn-primary:hover, .btn-primary:active{
-     color: black; 
-     background-color: #0000;
-    border-color: #0000; 
+/* MODAL TYYLIT */
+
+#kutsu1,
+#info1 {
+    margin-top: 300px;
 }
 
-.btn-primary:focus{
-     color: black; 
-     background-color: #0000;
-    border-color: #0000; 
+h1,
+h2 {
+    font-family: "Barlow";
+}
+
+h1 {
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 40px;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 30px;
+    letter-spacing: 1.5px;
+}
+
+p {
+    font-family: "Nunito";
+}
+
+/* BOOTSTRAP NAPIT */
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+    color: black;
+    background-color: #0000;
+    border-color: #0000;
+}
+
+.btn-primary:focus {
+    color: black;
+    background-color: #0000;
+    border-color: #0000;
     box-shadow: inherit;
 }

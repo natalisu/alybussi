@@ -42,6 +42,32 @@ $('.uvirta').marquee({
 });
 
 
+// NÄYTÖNSÄÄSTÄJÄ
+
+$("#naytons").click(function () {
+    $("#naytons").fadeOut(800);
+});
+
+var idleTime = 0;
+$(document).ready(function () {
+    //Increment the idle time counter every minute.
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+});
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime > 0.9) { // 20 minutes
+        $("#naytons").fadeIn(800);
+    }
+}
 
 
 // LEAFLET KARTTA
@@ -124,49 +150,52 @@ L.geoJSON(geojsonFeature).addTo(map);
 
 //GOOGLE MAPS KARTTA
 
-      var map;
-      var infowindow;
+var map;
+var infowindow;
 
-      function initMap() {
-        var otaniemi = {lat: 60.1841396, lng: 24.83008380000001};
+function initMap() {
+    var otaniemi = {
+        lat: 60.182,
+        lng: 24.830
+    };
 
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: otaniemi,
-            zoom: 17,
-            zoomControl: false,
-            streetViewControl: false,
-            scrollwheel: false,
-            draggable: false,
-            mapTypeControl: false,
-            fullscreenControl: false
-        });
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: otaniemi,
+        zoom: 17,
+        zoomControl: false,
+        streetViewControl: false,
+        scrollwheel: false,
+        draggable: false,
+        mapTypeControl: false,
+        fullscreenControl: false
+    });
 
-        infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch({
-          location: otaniemi,
-          radius: 500,
-          type: ['bus_station']
-        }, callback);
-      }
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+        location: otaniemi,
+        radius: 300,
+        type: ['bus_station']
+    }, callback);
+}
 
-      function callback(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
+function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
             createMarker(results[i]);
-          }
         }
-      }
+    }
+}
 
-      function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
-        });
+function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+    });
 
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
-      }
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+    });
+}
