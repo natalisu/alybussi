@@ -35,98 +35,91 @@
             </div>
 
             <div class="row tied">
-                <div class="col uvirta">tähän tulee tiedoitteet</div>
+                <div class="col uvirta" id="uvirta">tähän tulee tiedoitteet</div>
             </div>
         </div>
 
+        <img src="placeholder.jpg" id="naytons" alt="mainos">
 
-        <div class="row kartta">
-            <img src="placeholder.jpg" id="naytons" alt="mainos">
+        <div class="row" id="map"></div>
+        <div class="napit" align="center">
+            <!-- NAPIT -->
+            <div class="nappi-margin">
+                <button type="button" class="btn" data-toggle="modal" data-target="#kutsu1"> <i class="fa fa-bus fa-5x nappi"></i></button>
+                <p id="kutsu">Kutsu</p>
 
-
-            <div class="col" id="map"></div>
-            <div class="col-2 napit" align="center">
-                <!-- NAPIT -->
-                <div class="nappi-margin">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kutsu1"> <i class="fa fa-bus fa-5x"></i></button>
-                    <p>Kutsu</p>
-
-                    <!-- MODAL -->
-                    <div class="modal fade" id="kutsu1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h1>Bussi kutsuttu.</h1>
-                                </div>
+                <!-- MODAL -->
+                <div class="modal fade" id="kutsu1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h1 id="buscall">Bussi kutsuttu!</h1>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
+            </div>
 
-                <div class="nappi-margin">
-                    <i class="fa fa-subway fa-5x"></i>
-                    <p>HSL</p>
-                </div>
+            <div class="nappi-margin hsl">
+                <i class="fa fa-subway fa-5x nappi"></i>
+                <p id="hsl">HSL</p>
+            </div>
 
-                <div class="nappi-margin">
-                    <i class="fa fa-coffee fa-5x"></i>
-                    <p>Palvelut</p>
-                </div>
+            <div class="nappi-margin">
+                <i class="fa fa-coffee fa-5x nappi"></i>
+                <p id="palvelut">Palvelut</p>
+            </div>
 
-                <div class="nappi-margin">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info1"> <i class="fa fa-info-circle fa-5x"></i></button>
-                    <p>Info</p>
+            <div class="nappi-margin">
+                <button type="button" class="btn" data-toggle="modal" data-target="#info1"> <i class="fa fa-info-circle fa-5x nappi"></i></button>
+                <p id="info">Info</p>
 
-                    <!-- MODAL -->
-                    <div class="modal fade" id="info1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h2>SOHJOA-hanke</h2>
-                                    <p>
-                                        SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.
-                                    </p>
-                                    <p>
-                                        Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.</p>
-                                </div>
+                <!-- MODAL -->
+                <div class="modal fade" id="info1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body" align="left">
+                                <h2 id="sohjoah">SOHJOA-hanke</h2>
+                                <p id="sohjoa1">
+                                    SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.
+                                </p>
+                                <p id="sohjoa2">
+                                    Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="nappi-margin">
-                    <i class="fa fa-wheelchair fa-5x"></i>
-                    <p>Esteettömyys</p>
-                </div>
-
-                <div class="nappi-margin">
-                    <i class="fa fa fa-globe fa-5x"></i>
-                    <p>Kieli</p>
-                </div>
+            <div class="nappi-margin" id="langbtn">
+                <i class="fa fa fa-globe fa-5x nappi"></i>
+                <p id="lang">Kieli</p>
             </div>
         </div>
+    </div>
+
+    <div class="mainos"></div>
 
 
-        <!-- BOOTSTRAP 4 -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-        <script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
+    <!-- BOOTSTRAP 4 -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
 
-        <!-- LEAFLET -->
-        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+    <!-- LEAFLET -->
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
 
-        <!-- MAPBOX -->
-        <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js'></script>
-        <script src='https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js'></script>
+    <!-- MAPBOX -->
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js'></script>
 
-        <script src="scripts.js"></script>
-        <script src="hsl.js"></script>
+    <script src="scripts.js"></script>
 
-        <!--GOOGLE MAPS-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU4TI-gdZ8XeaVPNfoEfb753xFCvIF-t4&libraries=places&callback=initMap&language=fi&region=FI" async defer></script>
+    <!--GOOGLE MAPS-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU4TI-gdZ8XeaVPNfoEfb753xFCvIF-t4&libraries=places&callback=initMap&language=fi&region=FI" async defer></script>
 </body>
 
 </html>

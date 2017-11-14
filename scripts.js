@@ -26,20 +26,23 @@ window.onload = function () {
 
 
 
+
+
 // UUTISVIRTA
 
-$('.uvirta').marquee({
-    //speed in milliseconds of the marquee
-    duration: 10000,
-    //gap in pixels between the tickers
-    // gap: 100,
-    //time in milliseconds before the marquee will start animating
-    delayBeforeStart: 0,
-    //'left' or 'right'
-    direction: 'left',
-    //true or false - should the marquee be duplicated to show an effect of continues flow
-    duplicated: false
-});
+function uutisVirta() {
+    $('.uvirta').marquee({
+        duration: 10000, //speed in milliseconds of the marquee
+        // gap: 100, //gap in pixels between the tickers
+        delayBeforeStart: 0, // time in milliseconds before the marquee will start animating
+        direction: 'left', //'left' or 'right'
+        duplicated: false //true or false - should the marquee be duplicated to show an effect of continues flow
+    });
+}
+
+
+
+
 
 
 // NÄYTÖNSÄÄSTÄJÄ
@@ -64,103 +67,31 @@ $(document).ready(function () {
 
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime > 0.9) { // 20 minutes
+    if (idleTime > 2) {
         $("#naytons").fadeIn(800);
+        // Jos näyttö ollut inaktiivisena 3 min, näytönsäästäjä palautuu
     }
 }
 
 
-// LEAFLET KARTTA
-
-/*var map = L.map('map').setView([60.1810352, 24.83190479999996], 17);
-
-L.tileLayer('https://api.mapbox.com/styles/v1/koenshi/cj9o4wl4g42jk2spcfq4v3eiu/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 17,
-    minZoom: 17,
-    id: 'mapbox.streets',
-    style: 'mapbox://styles/mapbox/streets-v10',
-    accessToken: 'pk.eyJ1Ijoia29lbnNoaSIsImEiOiJjajludnExaXQyZ2dnMnFzMmczMWNoMW4yIn0.ksZiBFRbpfKuxbSzDXaJBA'
-}).addTo(map);
-
-// interaktiivisuuden poistaminen
-/* map._handlers.forEach(function (handler) {
-    handler.disable();
-});
-$(".leaflet-control-zoom").css("visibility", "hidden");
 
 
-var point = turf.point(24.83190479999996, 60.180602, {
-    "marker-color": "#8E8E8E",
-    "title": "Determining Point",
-    "marker-symbol": "star",
-    "marker-size": "large"
-});
-
-var features = [
-    turf.point(24.832415999999967, 60.180602, {
-        "marker-color": "#6BC65F",
-        "title": "Too Far",
-        "marker-size": "small"
-    }),
-    turf.point(24.830848599999968, 60.18155189999999, {
-        "marker-color": "#6BC65F",
-        "title": "Too Far",
-        "marker-size": "small"
-    }),
-    turf.point(24.831505900000025, 60.1836679, {
-        "marker-color": "#6BC65F",
-        "title": "Too Far",
-        "marker-size": "small"
-    })
-];
-
-var fc = turf.featurecollection(features);
-
-var nearest = turf.nearest(point, fc);
-
-nearest.properties["marker-color"] = "#25561F";
-nearest.properties["title"] = "Nearest Point";
-nearest.properties["marker-size"] = "large";
-nearest.properties["marker-symbol"] = "star-stroked";
-
-var nearest_fc = turf.featurecollection([point, nearest]);
-
-L.mapbox.accessToken = 'pk.eyJ1Ijoia29lbnNoaSIsImEiOiJjajludnExaXQyZ2dnMnFzMmczMWNoMW4yIn0.ksZiBFRbpfKuxbSzDXaJBA';
-L.mapbox.featureLayer().setGeoJSON(fc).addTo(map);
-L.mapbox.featureLayer().setGeoJSON(nearest_fc).addTo(map);
 
 
-/*
-var geojsonFeature = {
-    "type": "Feature",
-    "properties": {
-        "name": "Coors Field",
-        "amenity": "Baseball Stadium",
-        "popupContent": "This is where the Rockies play!"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [50.1810352, 2.83190479999996]
-    }
-};
-
-L.geoJSON(geojsonFeature).addTo(map);
-*/
-
-//GOOGLE MAPS KARTTA
+//GOOGLE MAPS -KARTTA
 
 var map;
 var infowindow;
+var sijainti = {
+    lat: 60.182,
+    lng: 24.830
+}
+
 
 function initMap() {
-    var otaniemi = {
-        lat: 60.182,
-        lng: 24.830
-    };
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: otaniemi,
+        center: sijainti,
         zoom: 17,
         zoomControl: false,
         streetViewControl: false,
@@ -173,10 +104,11 @@ function initMap() {
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
-        location: otaniemi,
+        location: sijainti,
         radius: 300,
         type: ['bus_station']
     }, callback);
+
 }
 
 function callback(results, status) {
@@ -199,3 +131,90 @@ function createMarker(place) {
         infowindow.open(map, this);
     });
 }
+
+
+
+
+
+
+// PYSÄKKIHAKU
+
+function getStops() {
+
+    var query = JSON.stringify({
+        query: '{ stopsByRadius(lat: ' + sijainti.lat + ', lon: ' + sijainti.lng + ', radius: 500) { edges { node { stop {name, gtfsId, lat, lon} } } } }'
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
+        data: query,
+        contentType: 'application/json; charset=utf-8',
+        success: function (pysakit) {
+            var results = JSON.stringify(pysakit.data.stopsByRadius.edges, null, 4);
+            // console.log(results);
+            console.log(pysakit.data.stopsByRadius.edges);
+        }
+    });
+
+}
+
+getStops();
+
+
+
+
+
+
+
+// KIELEN VAIHTO
+
+var langbtn = document.getElementById("langbtn");
+
+function changeFin() {
+    document.getElementById("uvirta").innerHTML = ("tähän tulee tiedoitteet");
+    document.getElementById("kutsu").innerHTML = ("Kutsu");
+    document.getElementById("buscall").innerHTML = ("Bussi kutsuttu!");
+    document.getElementById("hsl").innerHTML = ("HSL");
+    document.getElementById("palvelut").innerHTML = ("Palvelut");
+    document.getElementById("info").innerHTML = ("Info");
+    document.getElementById("sohjoah").innerHTML = ("SOHJOA-hanke");
+    document.getElementById("sohjoa1").innerHTML = ("SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.");
+    document.getElementById("sohjoa2").innerHTML = ("Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.");
+    document.getElementById("lang").innerHTML = ("Kieli");
+};
+
+function changeEng() {
+    document.getElementById("uvirta").innerHTML = ("news here");
+    document.getElementById("kutsu").innerHTML = ("Call bus");
+    document.getElementById("buscall").innerHTML = ("Your bus is coming!");
+    document.getElementById("hsl").innerHTML = ("Commute");
+    document.getElementById("palvelut").innerHTML = ("Services");
+    document.getElementById("info").innerHTML = ("Help");
+    document.getElementById("sohjoah").innerHTML = ("The SOHJOA Project");
+    document.getElementById("sohjoa1").innerHTML = ("SOHJOA-6Aika is part of a Finnish cities’ collaborative 6Aika -project family funded by European Structural Fund. Our partners are Aalto University, Forum Virium Helsinki, Finnish Geographical Institute and Tampere University of Technology. Operation of automated vehicles in Finnish environment is tested as part of the NordicWay - project funded by Finnish Transport Safety Agency Trafi and Finnish Transport Agency Liikennevirasto. NordicWay project tackles the challenges of new traffic services and road transport automation.");
+    document.getElementById("sohjoa2").innerHTML = ("SOHJOA aims to set Finland in the fast lane of the development of automated road transport systems. Enabling the transition towards road traffic automation is accompanied with the development of new export businesses. To this end, in addition to piloting, the project will create an open innovation platform that companies can utilize to develop new product and service ideas. The potential new operational models, products and services will either support all-round operability of automated systems or take advantage of it.");
+    document.getElementById("lang").innerHTML = ("Language");
+};
+
+$(document).ready(function () {
+    uutisVirta();
+    var language = 1;
+    console.log("Kieli on " + language + " eli suomi");
+
+    langbtn.onclick = function changeLang() {
+        if (language === 1) {
+            changeEng();
+            uutisVirta();
+            language = language + 1;
+            console.log("Language is now " + language + " which is English");
+        } else if (language === 2) {
+            changeFin();
+            uutisVirta();
+            language = language - 1;
+            console.log("Kieli on " + language + " eli suomi");
+        }
+
+    };
+
+});
