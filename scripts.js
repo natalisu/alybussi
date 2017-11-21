@@ -73,11 +73,6 @@ function timerIncrement() {
     }
 }
 
-
-
-
-
-
 //GOOGLE MAPS -KARTTA
 
 var map;
@@ -101,7 +96,7 @@ function initMap() {
         fullscreenControl: false
     });
 
-    infowindow = new google.maps.InfoWindow();
+    /*infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
         location: sijainti,
@@ -109,6 +104,75 @@ function initMap() {
         type: ['bus_station']
     }, callback);
 
+}*/
+
+    var lineSymbol = {
+        path: google.maps.SymbolPath.CIRCLE,
+        strokeOpacity: 1,
+        strokeColor: 'rgba(218, 5, 5, 0.568)',
+        scale: 4
+    };
+
+    // Create the polyline, passing the symbol in the 'icons' property.
+    // Give the line an opacity of 0.
+    // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
+    var line = new google.maps.Polyline({
+        path: [{
+                lat: 60.183397,
+                lng: 24.828528
+            },
+            {
+                lat: 60.183233,
+                lng: 24.828193
+            },
+            {
+                lat: 60.182937,
+                lng: 24.828823
+            },
+            {
+                lat: 60.182502,
+                lng: 24.829644
+            },
+            {
+                lat: 60.182190,
+                lng: 24.830331
+            },
+            {
+                lat: 60.182009,
+                lng: 24.830701
+            },
+            {
+                lat: 60.181492,
+                lng: 24.831087
+            },
+            {
+                lat: 60.181151,
+                lng: 24.831280
+            },
+            {
+                lat: 60.180983,
+                lng: 24.830845
+            },
+            {
+                lat: 60.180930,
+                lng: 24.830856
+            },
+            {
+                lat: 60.180650,
+                lng: 24.831092
+            },
+            {
+                lat: 60.180701,
+                lng: 24.831451
+            }],
+        strokeOpacity: 0,
+        icons: [{
+            icon: lineSymbol,
+            offset: '0',
+            repeat: '20px'
+          }],
+        map: map
+    });
 }
 
 function callback(results, status) {
