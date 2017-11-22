@@ -28,23 +28,6 @@ window.onload = function () {
 
 
 
-// UUTISVIRTA
-
-function uutisVirta() {
-    $('.uvirta').marquee({
-        duration: 10000, //speed in milliseconds of the marquee
-        // gap: 100, //gap in pixels between the tickers
-        delayBeforeStart: 0, // time in milliseconds before the marquee will start animating
-        direction: 'left', //'left' or 'right'
-        duplicated: false //true or false - should the marquee be duplicated to show an effect of continues flow
-    });
-}
-
-
-
-
-
-
 // NÄYTÖNSÄÄSTÄJÄ
 
 $("#naytons").click(function () {
@@ -73,6 +56,11 @@ function timerIncrement() {
     }
 }
 
+
+
+
+
+
 //GOOGLE MAPS -KARTTA
 
 var map;
@@ -95,16 +83,6 @@ function initMap() {
         mapTypeControl: false,
         fullscreenControl: false
     });
-
-    /*infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-        location: sijainti,
-        radius: 300,
-        type: ['bus_station']
-    }, callback);
-
-}*/
 
     var lineSymbol = {
         path: google.maps.SymbolPath.CIRCLE,
@@ -201,12 +179,14 @@ function createMarker(place) {
 
 
 
+
 // PYSÄKKIHAKU
 
 function getStops() {
 
     var query = JSON.stringify({
-        query: '{ stopsByRadius(lat: ' + sijainti.lat + ', lon: ' + sijainti.lng + ', radius: 500) { edges { node { stop {name, gtfsId, lat, lon} } } } }'
+        // PELKÄT PYSÄKIT // query: '{ stopsByRadius(lat: ' + sijainti.lat + ', lon: ' + sijainti.lng + ', radius: 500) { edges { node { stop {name, gtfsId, lat, lon} } } } }'
+        query: '{ stopsByRadius(lat: ' + sijainti.lat + ', lon: ' + sijainti.lng + ', radius: 500) { edges { node { stop { name, lat, lon, routes { gtfsId } stoptimesWithoutPatterns(numberOfDepartures: 10) { scheduledDeparture, headsign } } } } } }'
     });
 
     $.ajax({
@@ -215,16 +195,72 @@ function getStops() {
         data: query,
         contentType: 'application/json; charset=utf-8',
         success: function (pysakit) {
-            var results = JSON.stringify(pysakit.data.stopsByRadius.edges, null, 4);
+            var results = pysakit.data.stopsByRadius.edges.forEach(function (edge) {
+                console.log(edge.node.stop)
+            });
+            console.log(" ");
             // console.log(results);
-            console.log(pysakit.data.stopsByRadius.edges);
+            // console.log(pysakit.data.stopsByRadius.edges);
         }
     });
-
 }
 
 getStops();
 
+
+
+
+
+
+// UUTISVIRTA & TIEDOITEHAKU
+
+function uutisVirta() {
+    $('.uvirta').marquee({
+        duration: 10000,
+        // gap: 100,
+        delayBeforeStart: 0,
+        direction: 'left',
+        duplicated: false
+    });
+};
+
+var fiUrl = "http://users.metropolia.fi/~ollial/web/proxy2.php?url=https://www.hsl.fi/newsApi/3";
+var enUrl = "http://users.metropolia.fi/~ollial/web/proxy2.php?url=https://www.hsl.fi/en/newsApi/3";
+var urlSetting = "";
+
+function chooseUrl(languageSetting) {
+    if (languageSetting === 1) {
+        urlSetting = fiUrl;
+        getNewsFeed(urlSetting);
+    } else if (languageSetting === 2) {
+        urlSetting = enUrl;
+        getNewsFeed(urlSetting);
+    }
+}
+
+function getNewsFeed(urlSetting) {
+
+    $.ajax({
+        type: "POST",
+        url: urlSetting,
+        contentType: 'application/json; charset=utf-8',
+        success: function (tiedotteet) {
+            console.log("Tiedotteita haettu " + Object.keys(tiedotteet.contents.nodes).length + " kpl");
+
+            /*
+            var results = tiedotteet.contents.nodes.forEach(function (edge) {
+                console.log(edge.node.title);
+                document.getElementById("uvirta").innerHTML = edge.node.title;
+                uutisVirta();
+
+            });
+            */
+
+            var results = tiedotteet.contents.nodes
+
+        }
+    });
+};
 
 
 
@@ -235,50 +271,62 @@ getStops();
 
 var langbtn = document.getElementById("langbtn");
 
-function changeFin() {
-    document.getElementById("uvirta").innerHTML = ("tähän tulee tiedoitteet");
-    document.getElementById("kutsu").innerHTML = ("Kutsu");
-    document.getElementById("buscall").innerHTML = ("Bussi kutsuttu!");
-    document.getElementById("hsl").innerHTML = ("HSL");
-    document.getElementById("palvelut").innerHTML = ("Palvelut");
-    document.getElementById("info").innerHTML = ("Info");
-    document.getElementById("sohjoah").innerHTML = ("SOHJOA-hanke");
-    document.getElementById("sohjoa1").innerHTML = ("SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.");
-    document.getElementById("sohjoa2").innerHTML = ("Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.");
-    document.getElementById("lang").innerHTML = ("Kieli");
-};
-
-function changeEng() {
-    document.getElementById("uvirta").innerHTML = ("news here");
-    document.getElementById("kutsu").innerHTML = ("Call bus");
-    document.getElementById("buscall").innerHTML = ("Your bus is coming!");
-    document.getElementById("hsl").innerHTML = ("Commute");
-    document.getElementById("palvelut").innerHTML = ("Services");
-    document.getElementById("info").innerHTML = ("Help");
-    document.getElementById("sohjoah").innerHTML = ("The SOHJOA Project");
-    document.getElementById("sohjoa1").innerHTML = ("SOHJOA-6Aika is part of a Finnish cities’ collaborative 6Aika -project family funded by European Structural Fund. Our partners are Aalto University, Forum Virium Helsinki, Finnish Geographical Institute and Tampere University of Technology. Operation of automated vehicles in Finnish environment is tested as part of the NordicWay - project funded by Finnish Transport Safety Agency Trafi and Finnish Transport Agency Liikennevirasto. NordicWay project tackles the challenges of new traffic services and road transport automation.");
-    document.getElementById("sohjoa2").innerHTML = ("SOHJOA aims to set Finland in the fast lane of the development of automated road transport systems. Enabling the transition towards road traffic automation is accompanied with the development of new export businesses. To this end, in addition to piloting, the project will create an open innovation platform that companies can utilize to develop new product and service ideas. The potential new operational models, products and services will either support all-round operability of automated systems or take advantage of it.");
-    document.getElementById("lang").innerHTML = ("Language");
-};
-
 $(document).ready(function () {
-    uutisVirta();
-    var language = 1;
-    console.log("Kieli on " + language + " eli suomi");
 
-    langbtn.onclick = function changeLang() {
-        if (language === 1) {
-            changeEng();
-            uutisVirta();
-            language = language + 1;
-            console.log("Language is now " + language + " which is English");
-        } else if (language === 2) {
+    var kieli = "";
+
+    $.ajax({
+        type: "POST",
+        url: "lang.json",
+        contentType: 'application/json; charset=utf-8',
+        success: function (kieli) {
+
+            function changeFin() {
+                document.getElementById("kutsu").innerHTML = kieli.fi.kutsu;
+                document.getElementById("buscall").innerHTML = kieli.fi.buscall;
+                document.getElementById("hsl").innerHTML = kieli.fi.hsl;
+                document.getElementById("palvelut").innerHTML = kieli.fi.palvelut;
+                document.getElementById("info").innerHTML = kieli.fi.info;
+                document.getElementById("sohjoah").innerHTML = kieli.fi.sohjoah;
+                document.getElementById("sohjoa1").innerHTML = kieli.fi.sohjoa1;
+                document.getElementById("sohjoa2").innerHTML = kieli.fi.sohjoa2;
+                document.getElementById("lang").innerHTML = kieli.fi.lang;
+            };
+
+            function changeEng() {
+                document.getElementById("kutsu").innerHTML = kieli.en.kutsu;
+                document.getElementById("buscall").innerHTML = kieli.en.buscall;
+                document.getElementById("hsl").innerHTML = kieli.en.hsl;
+                document.getElementById("palvelut").innerHTML = kieli.en.palvelut;
+                document.getElementById("info").innerHTML = kieli.en.info;
+                document.getElementById("sohjoah").innerHTML = kieli.en.sohjoah;
+                document.getElementById("sohjoa1").innerHTML = kieli.en.sohjoa1;
+                document.getElementById("sohjoa2").innerHTML = kieli.en.sohjoa2;
+                document.getElementById("lang").innerHTML = kieli.en.lang;
+            };
+
+            var language = 1;
             changeFin();
-            uutisVirta();
-            language = language - 1;
+            chooseUrl(1);
             console.log("Kieli on " + language + " eli suomi");
-        }
 
-    };
+            langbtn.onclick = function changeLang() {
+                if (language === 1) {
+                    changeEng();
+                    chooseUrl(2);
+
+                    language = language + 1;
+                    console.log("Language is now " + language + " which is English");
+                } else if (language === 2) {
+                    changeFin();
+                    chooseUrl(1);
+
+                    language = language - 1;
+                    console.log("Kieli on " + language + " eli suomi");
+                }
+
+            };
+        }
+    });
 
 });
