@@ -226,6 +226,7 @@ function uutisVirta() {
 
 var fiUrl = "http://users.metropolia.fi/~ollial/web/proxy2.php?url=https://www.hsl.fi/newsApi/3";
 var enUrl = "http://users.metropolia.fi/~ollial/web/proxy2.php?url=https://www.hsl.fi/en/newsApi/3";
+var svUrl = "http://users.metropolia.fi/~ollial/web/proxy2.php?url=https://www.hsl.fi/sv/newsApi/3";
 var urlSetting = "";
 
 function chooseUrl(languageSetting) {
@@ -234,6 +235,9 @@ function chooseUrl(languageSetting) {
         getNewsFeed(urlSetting);
     } else if (languageSetting === 2) {
         urlSetting = enUrl;
+        getNewsFeed(urlSetting);
+    } else if (languageSetting === 3) {
+        urlSetting = svUrl;
         getNewsFeed(urlSetting);
     }
 }
@@ -247,14 +251,14 @@ function getNewsFeed(urlSetting) {
         success: function (tiedotteet) {
             console.log("Tiedotteita haettu " + Object.keys(tiedotteet.contents.nodes).length + " kpl");
 
-            /*
+
             var results = tiedotteet.contents.nodes.forEach(function (edge) {
                 console.log(edge.node.title);
                 document.getElementById("uvirta").innerHTML = edge.node.title;
                 uutisVirta();
 
             });
-            */
+
 
             var results = tiedotteet.contents.nodes
 
@@ -305,6 +309,18 @@ $(document).ready(function () {
                 document.getElementById("lang").innerHTML = kieli.en.lang;
             };
 
+            function changeSv() {
+                document.getElementById("kutsu").innerHTML = kieli.sv.kutsu;
+                document.getElementById("buscall").innerHTML = kieli.sv.buscall;
+                document.getElementById("hsl").innerHTML = kieli.sv.hsl;
+                document.getElementById("palvelut").innerHTML = kieli.sv.palvelut;
+                document.getElementById("info").innerHTML = kieli.sv.info;
+                document.getElementById("sohjoah").innerHTML = kieli.sv.sohjoah;
+                document.getElementById("sohjoa1").innerHTML = kieli.sv.sohjoa1;
+                document.getElementById("sohjoa2").innerHTML = kieli.sv.sohjoa2;
+                document.getElementById("lang").innerHTML = kieli.sv.lang;
+            };
+
             var language = 1;
             changeFin();
             chooseUrl(1);
@@ -318,10 +334,16 @@ $(document).ready(function () {
                     language = language + 1;
                     console.log("Language is now " + language + " which is English");
                 } else if (language === 2) {
+                    changeSv();
+                    chooseUrl(3);
+
+                    language = language + 1;
+                    console.log("Språket är " + language + " som är svenska");
+                } else if (language === 3) {
                     changeFin();
                     chooseUrl(1);
 
-                    language = language - 1;
+                    language = language - 2;
                     console.log("Kieli on " + language + " eli suomi");
                 }
 
