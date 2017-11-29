@@ -309,3 +309,16 @@ ul {
   box-shadow: none !important;
   outline: none !important;
 }
+
+/*INFO WINDOW*/
+
+.gm-style-iw {
+    top: 15px !important;
+    left: 31px !important;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+    border: 1px solid rgba(72, 181, 233, 0.6);
+    border-radius: 5px 5px 5px 5px;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+}
