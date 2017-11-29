@@ -2,122 +2,131 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <!-- LEAFLET -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="" />
+  <!-- BOOTSTRAP 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <!-- MAPBOX -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet' />
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.css' rel='stylesheet' />
-
-    <!-- BOOTSTRAP 4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
-    <!-- OMA CSS, FONT AWESOME & GOOGLE FONTS -->
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Barlow|Nunito" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>SOHJOA</title>
+  <!-- OMA CSS, FONT AWESOME & GOOGLE FONTS -->
+  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Barlow|Nunito" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>SOHJOA</title>
+  <link rel="shortcut icon" href="images/favicon.ico">
 </head>
 
 <body>
-    <div class="container">
+  <div class="container">
 
-        <div id="ylapalkki">
-            <div class="row" id="yla">
-                <div class="col" id="klo"></div>
-                <div class="col text-right" id="bus">
-                    <p class="bustime">~5 min.</p>
-                    <i class="fa fa-bus fa-4x" aria-hidden="true"></i></div>
-            </div>
+    <div class="ylapalkki">
+      <div class="row" id="yla">
+        <div class="klopic" id="klo1"><img src="images/klo1.png" height="80px"></div>
+        <div id="klo"></div>
+        <div class="klopic" id="klo2"><img src="images/klo2.png" height="80px"></div>
+        <!--
+        <div class="col text-right" id="bus">
+          <p class="bustime">~5 min.</p>
+          <i class="fa fa-bus fa-4x" aria-hidden="true"></i></div>
+        -->
+      </div>
 
-            <div class="row tied">
-                <div class="col uvirta" id="uvirta"></div>
-            </div>
-        </div>
-
-        <!-- <img src="placeholder.jpg" id="naytons" alt="mainos"> -->
-
-        <div class="row" id="map"></div>
-        <div class="napit" align="center">
-            <!-- NAPIT -->
-            <div class="nappi-margin">
-                <button type="button" class="btn" data-toggle="modal" data-target="#kutsu1"> <i class="fa fa-bus fa-5x nappi"></i></button>
-                <p id="kutsu"></p>
-
-                <!-- MODAL -->
-                <div class="modal fade" id="kutsu1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <h1 id="buscall"></h1>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="nappi-margin hsl">
-                <i class="fa fa-subway fa-5x nappi"></i>
-                <p id="hsl"></p>
-            </div>
-
-            <div class="nappi-margin">
-                <i class="fa fa-coffee fa-5x nappi"></i>
-                <p id="palvelut"></p>
-            </div>
-
-            <div class="nappi-margin">
-                <button type="button" class="btn" data-toggle="modal" data-target="#info1"> <i class="fa fa-info-circle fa-5x nappi"></i></button>
-                <p id="info"></p>
-
-                <!-- MODAL -->
-                <div class="modal fade" id="info1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-body" align="left">
-                                <h2 id="sohjoah"></h2>
-                                <p id="sohjoa1"></p>
-                                <p id="sohjoa2"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="nappi-margin" id="langbtn">
-                <i class="fa fa fa-globe fa-5x nappi"></i>
-                <p id="lang"></p>
-            </div>
-        </div>
+      <div class="row tied">
+        <div class="col uvirta" id="uvirta"></div>
+      </div>
     </div>
 
-    <div class="mainos"></div>
+    <div class="nextBus">
+      <img src="images/busicon.png" class="busImg" height="70px">
+      <p class="busTime" id="busTime">4 min.</p>
+    </div>
 
+    <!-- <img src="images/placeholder.jpg" id="naytons" alt="mainos"> -->
 
-    <!-- BOOTSTRAP 4 -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
+    <div class="row" id="map"></div>
+    <div class="napit" align="center">
 
-    <!-- LEAFLET -->
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+      <!-- NAPIT -->
 
-    <!-- MAPBOX -->
-    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js'></script>
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js'></script>
+      <!-- KUTSU -->
+      <button type="button" class="btn nappi-margin" data-toggle="modal" data-target="#kutsu1"> 
+          <i class="fa fa-bus fa-5x nappi"></i>
+          <p id="kutsu"></p>
+        </button>
 
-    <script src="scripts.js"></script>
+      <div class="modal fade" id="kutsu1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h1 id="buscall"></h1>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <!--GOOGLE MAPS-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU4TI-gdZ8XeaVPNfoEfb753xFCvIF-t4&libraries=places&callback=initMap&language=fi&region=FI" async defer></script>
-    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <!-- HSL -->
+      <button type="button" class="btn nappi-margin hsl" data-toggle="modal" data-target="#hsl1"> <i class="fa fa-train fa-5x nappi"></i>
+        <p id="hsl"></p>
+      </button>
+
+      <div class="modal fade" id="hsl1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body hslmodal" align="left">
+              <h1 id="busHead"></h1><br>
+              <p id="busText"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PALVELUT -->
+      <div class="nappi-margin">
+        <i class="fa fa-coffee fa-5x nappi"></i>
+        <p id="palvelut"></p>
+      </div>
+
+      <!-- INFO -->
+      <button type="button" class="btn nappi-margin" data-toggle="modal" data-target="#info1"> <i class="fa fa-info-circle fa-5x nappi"></i>
+        <p id="info"></p>
+        </button>
+
+      <div class="modal fade" id="info1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body" align="left">
+              <h2 id="sohjoah"></h2>
+              <p id="sohjoa1"></p>
+              <p id="sohjoa2"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KIELI -->
+      <div class="nappi-margin" id="langbtn">
+        <i class="fa fa fa-globe fa-5x nappi"></i>
+        <p id="lang"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mainos"></div>
+
+  <script src="moment-with-locales.min.js"></script>
+
+  <!-- BOOTSTRAP 4 -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  <script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
+
+  <script src="scripts.js"></script>
+
+  <!--GOOGLE MAPS-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU4TI-gdZ8XeaVPNfoEfb753xFCvIF-t4&libraries=places&callback=initMap&language=fi&region=FI" async defer></script>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
 </body>
 
 </html>

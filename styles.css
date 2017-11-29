@@ -2,20 +2,19 @@
 
 Mustanharmaa (taustat): #191919
 Vaaleanharmaa (tiedoitetausta): #d3d3d3
-Vihreä (aksenttiväri): #9AD754
-
+Violetti (aksenttiväri): #7470BC
 
 
 /* BODY & CONTAINER */
 
 body {
-    margin: auto;
-    height: 1980px;
-    width: 1080px;
+  margin: auto;
+  height: 1980px !important;
+  width: 1080px !important;
 }
 
 .container-fluid {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 
@@ -25,58 +24,104 @@ body {
 
 /* YLÄBANNERI, KELLO & TIEDOITTEET */
 
-#ylapalkki {
-    height: 200px;
-    width: 100%;
-    z-index: 100 !important;
-    position: relative;
+.ylapalkki {
+  height: 200px;
+  width: 100%;
+  z-index: 100 !important;
+  position: relative;
 }
 
 #yla {
-    height: 150px;
-    background-color: #191919;
-    color: #fff;
+  height: 150px;
+  background-color: #191919;
+  color: #fff;
 }
 
 #klo {
-    padding-top: 0;
-    font-family: "Barlow";
-    font-size: 100px;
-    font-weight: bold;
-    padding-left: 0.5em;
-    text-shadow: none;
-    letter-spacing: 5px;
-    color: #9AD754;
+  margin-top: -10px !important;
+  font-family: "Segoe UI";
+  font-size: 110px;
+  font-weight: 500;
+  text-shadow: none;
+  letter-spacing: 8px;
+  color: #fff;
+  margin: auto;
 }
 
+.klopic {
+  padding-top: 2.5em;
+}
+
+#klo1 {
+  margin-left: auto;
+  margin-right: -12em;
+}
+
+#klo2 {
+  margin-right: auto;
+  margin-left: -12em;
+}
+
+
 #bus {
-    padding-top: 3em !important;
-    padding-right: 3.5em;
+  padding-top: 3em !important;
+  padding-right: 3.5em;
 }
 
 .bustime {
-    font-family: "Barlow";
-    font-size: 50px;
-    padding-right: 1em;
-    display: inline;
-    letter-spacing: 1px;
+  font-family: "Nunito";
+  font-size: 50px;
+  padding-right: 1em;
+  display: inline;
+  letter-spacing: 1px;
 }
 
 .tied {
-    height: 50px;
-    background-color: #d3d3d3;
-    border-bottom: 1px solid #000;
-    box-shadow: 0 12px 30px -4px rgba(43, 43, 43, 0.4);
-    font-family: "Nunito";
-    letter-spacing: 1px;
+  height: 55px;
+  background-color: #d3d3d3;
+  box-shadow: 0 12px 30px -4px rgba(43, 43, 43, 0.4);
+  font-family: "Nunito";
+  letter-spacing: 1px;
 }
 
 .uvirta {
-    overflow: hidden;
-    padding-top: 0.2em;
-    font-size: 25px;
+  overflow: hidden;
+  padding-top: 0.2em;
+  font-size: 30px;
 }
 
+
+
+
+
+
+/* BUSSIN SAAPUMISAIKA */
+
+.nextBus {
+  width: 420px !important;
+  height: 100px;
+  background-color: #7470BC;
+  float: left;
+  border-radius: 0px 0px 20px 20px;
+}
+
+.busImg {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.busTime {
+  display: inline;
+  float: right;
+  margin-right: 10px;
+  margin-top: 15px;
+  font-family: "Nunito";
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
+  font-size: 60px;
+}
 
 
 
@@ -85,18 +130,18 @@ body {
 /* KARTTA & NÄYTÖNSÄÄSTÄJÄ */
 
 #naytons {
-    z-index: 10;
-    position: absolute;
-    width: 1080x !important;
-    height: 1780px !important;
-    margin-left: -0.9em;
+  z-index: 10;
+  position: absolute;
+  width: 1080x !important;
+  height: 1780px !important;
+  margin-left: -0.9em;
 }
 
 #map {
-    height: 1780px !important;
-    width: 1080px !important;
-    position: absolute;
-    z-index: -10 !important;
+  height: 1780px !important;
+  width: 1080px !important;
+  position: absolute;
+  z-index: -10 !important;
 }
 
 
@@ -107,46 +152,42 @@ body {
 /* NAPPIPALKKI */
 
 .napit {
-    width: 200px;
-    overflow: hidden;
-    float: right !important;
-    z-index: 10;
-    margin-right: -0.9em !important;
+  width: 200px;
+  overflow: hidden;
+  float: right !important;
+  z-index: 10;
+  margin-right: -0.9em !important;
 }
 
 .nappi {
-    color: #9AD754;
+  color: #7470BC;
 }
 
 .nappi-margin {
-    margin: 60px 0 0 30px;
-    background-color: #191919;
-    color: #fff;
-    padding: 1.5em 0 0 0.2em;
-    border-radius: 40px 0px 0px 40px;
-    height: 180px !important;
-    margin-bottom: 2em;
-    box-shadow: 5px 5px 30px 5px rgba(43, 43, 43, 1);
+  margin: 60px 0 0 30px;
+  background-color: #191919;
+  color: #fff;
+  padding: 1.5em 0 0 0.2em;
+  border-radius: 40px 0px 0px 40px;
+  height: 180px !important;
+  width: 180px;
+  margin-bottom: 2em;
+  box-shadow: 5px 5px 30px 5px rgba(43, 43, 43, 1);
 
 }
 
 button {
-    color: #fff !important;
+  color: #fff !important;
 }
 
 .nappi-margin > p {
-    margin-top: 0.5em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: bold;
-    font-size: 20px;
+  margin-top: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 20px;
 
 }
-
-.hsl {
-    padding-top: 2em;
-}
-
 
 
 
@@ -154,45 +195,102 @@ button {
 
 /* MODAL TYYLIT */
 
+.modal.fade .modal-dialog {
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -webkit-transition: none !important;
+  transition: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  -webkit-transform: none !important;
+  transform: none !important;
+}
+
+.fade {
+  -webkit-transition: opacity 0.5s linear;
+  -moz-transition: opacity 0.5s linear;
+  -ms-transition: opacity 0.5s linear;
+  -o-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+}
+
+.modal-content {
+  background-color: #191919 !important;
+  color: #fff;
+  padding: 1em;
+}
+
 #kutsu1,
 #info1 {
-    margin-top: 300px;
-    color: #000;
+  margin-top: 300px;
+}
+
+#hsl1 {
+  margin-top: 50px;
 }
 
 #kutsu1 > .modal-lg {
-    width: 450px !important;
+  width: 450px !important;
 }
 
 h1,
 h2 {
-    font-family: "Barlow";
+  font-family: "Barlow";
 }
 
 h1 {
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 40px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 40px;
 }
 
 h2 {
-    font-weight: bold;
-    font-size: 35px;
-    letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 35px;
+  letter-spacing: 2px;
 }
 
 p {
-    font-family: "Nunito";
-    font-size: 20px;
-    letter-spacing: 0.7px;
+  font-family: "Nunito";
+  font-size: 25px;
+  letter-spacing: 0.7px;
 }
 
-.modal-noscrollbar {
-    margin-right: 0 !important;
+.hslmodal {
+  margin-bottom: -50px !important;
 }
 
+#busHead,
+.stop-title {
+  font-family: "Nunito";
+  color: #7470BC;
+  font-weight: bold;
+}
 
+#busHead {
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+}
 
+.stop-title {
+  letter-spacing: 2px;
+}
+
+#busHead,
+#busText {
+  white-space: pre-wrap;
+}
+
+.scheduledTime {
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 10px;
+  letter-spacing: 1.5px;
+}
 
 
 
@@ -200,14 +298,14 @@ p {
 
 .btn,
 .btn:hover {
-    background-color: #191919;
-    border: none;
+  background-color: #191919;
+  border: none;
 }
 
 .btn:focus,
 .btn:active {
-    background-color: #191919 !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
+  background-color: #191919 !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }

@@ -1,35 +1,37 @@
 {
-    "fi": {
-        "kutsu": "kutsu",
-        "buscall": "Bussi kutsuttu!",
-        "hsl": "HSL",
-        "palvelut": "palvelut",
-        "info": "info",
-        "sohjoah": "SOHJOA-hanke",
-        "sohjoa1": "SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.",
-        "sohjoa2": "Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.",
-        "lang": "kieli"
-    },
-    "en": {
-        "kutsu": "call bus",
-        "buscall": "Your bus is on its way!",
-        "hsl": "Commute",
-        "palvelut": "services",
-        "info": "help",
-        "sohjoah": "The SOHJOA Project",
-        "sohjoa1": "SOHJOA-6Aika is part of a Finnish cities’ collaborative 6Aika -project family funded by European Structural Fund. Our partners are Aalto University, Forum Virium Helsinki, Finnish Geographical Institute and Tampere University of Technology. Operation of automated vehicles in Finnish environment is tested as part of the NordicWay - project funded by Finnish Transport Safety Agency Trafi and Finnish Transport Agency Liikennevirasto. NordicWay project tackles the challenges of new traffic services and road transport automation.",
-        "sohjoa2": "SOHJOA aims to set Finland in the fast lane of the development of automated road transport systems. Enabling the transition towards road traffic automation is accompanied with the development of new export businesses. To this end, in addition to piloting, the project will create an open innovation platform that companies can utilize to develop new product and service ideas. The potential new operational models, products and services will either support all-round operability of automated systems or take advantage of it.",
-        "lang": "language"
-    },
-    "sv": {
-        "kutsu": "bjud buss",
-        "buscall": "Bussen kommer sig",
-        "hsl": "åkning",
-        "palvelut": "tjänster",
-        "info": "hjälp",
-        "sohjoah": "SOHJOA projektet",
-        "sohjoa1": "SOHJOA-6Aika är en del av en finländsk städers samarbetspartner 6Aika-projektfamilj finansierad av Europeiska strukturfonden. Våra partners är Aalto University, Forum Virium Helsinki, Finlands Lantmäteriverket och Tammerfors tekniska högskola. Drift av automatiserade vehikel i finsk miljö testas som en del av NordicWay-projektet, finansierat av Trafiksäkerhetsverket Trafi och Trafikverket. NordicWay-projektet förbereder sig för nya trafiktjänster och vägtransportautomatisering.",
-        "sohjoa2": "SOHJOA-projektets huvudsyfte är att skapa en verklig möjlighet för finländska företag att utveckla nya produkt- och tjänstidéer som autonom rörlighet kräver eller tillåter. Projektet skapar en 'innovationsplattform' för företag, en funktionell busslinje där företag kan ta med sig sina produkter till utveckling och experiment. Projektet ökar också stads förståelsen för utveckling av rörlighet.",
-        "lang": "språk"
-    }
+  "fi": {
+    "kutsu": "kutsu",
+    "buscall": "Bussi kutsuttu!",
+    "hsl": "HSL",
+    "busHead": "Julkisen liikenteen aikataulut",
+    "palvelut": "palvelut",
+    "info": "info",
+    "sohjoah": "SOHJOA-hanke",
+    "sohjoa1": "SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.",
+    "sohjoa2": "Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.",
+    "lang": "kieli"
+  },
+  "en": {
+    "kutsu": "call bus",
+    "buscall": "Your bus is on its way!",
+    "hsl": "Commute",
+    "busHead": "Commute schedules",
+    "palvelut": "services",
+    "info": "help",
+    "sohjoah": "The SOHJOA Project",
+    "sohjoa1": "SOHJOA-6Aika is part of a Finnish cities’ collaborative 6Aika -project family funded by European Structural Fund. Our partners are Aalto University, Forum Virium Helsinki, Finnish Geographical Institute and Tampere University of Technology. Operation of automated vehicles in Finnish environment is tested as part of the NordicWay - project funded by Finnish Transport Safety Agency Trafi and Finnish Transport Agency Liikennevirasto. NordicWay project tackles the challenges of new traffic services and road transport automation.",
+    "sohjoa2": "SOHJOA aims to set Finland in the fast lane of the development of automated road transport systems. Enabling the transition towards road traffic automation is accompanied with the development of new export businesses. To this end, in addition to piloting, the project will create an open innovation platform that companies can utilize to develop new product and service ideas. The potential new operational models, products and services will either support all-round operability of automated systems or take advantage of it.",
+    "lang": "language"
+  },
+  "sv": {
+    "kutsu": "bjud buss",
+    "buscall": "Bussen kommer sig",
+    "hsl": "åkning",
+    "palvelut": "tjänster",
+    "info": "hjälp",
+    "sohjoah": "SOHJOA projektet",
+    "sohjoa1": "SOHJOA-6Aika är en del av en finländsk städers samarbetspartner 6Aika-projektfamilj finansierad av Europeiska strukturfonden. Våra partners är Aalto University, Forum Virium Helsinki, Finlands Lantmäteriverket och Tammerfors tekniska högskola. Drift av automatiserade vehikel i finsk miljö testas som en del av NordicWay-projektet, finansierat av Trafiksäkerhetsverket Trafi och Trafikverket. NordicWay-projektet förbereder sig för nya trafiktjänster och vägtransportautomatisering.",
+    "sohjoa2": "SOHJOA-projektets huvudsyfte är att skapa en verklig möjlighet för finländska företag att utveckla nya produkt- och tjänstidéer som autonom rörlighet kräver eller tillåter. Projektet skapar en 'innovationsplattform' för företag, en funktionell busslinje där företag kan ta med sig sina produkter till utveckling och experiment. Projektet ökar också stads förståelsen för utveckling av rörlighet.",
+    "lang": "språk"
+  }
 }
