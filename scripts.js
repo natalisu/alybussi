@@ -204,6 +204,68 @@ $(document).ready(function () {
 
 
 
+// NAPPULAT
+
+document.addEventListener("keyup", function(event) {
+event.preventDefault();
+if (event.keyCode === 49) {
+    document.getElementById("nappi1").click();
+}
+else if (event.keyCode === 50) {
+    document.getElementById("nappi2").click();
+}
+else if (event.keyCode === 52) {
+    document.getElementById("nappi4").click();
+}
+else if (event.keyCode === 53) {
+    document.getElementById("langbtn").click();
+}
+});
+
+/* $(document).ready(function(){
+    
+      //  $( "#target" ).keypress(function() {
+      //console.log( "Handler for .keypress() called." );
+    //});
+        
+        $(document).keypress(function(e){
+        var checkMoz1=(e.which==49 ? 1 : 0);
+        var checkMoz2=(e.which==50 ? 1 : 0);
+        var checkMoz3=(e.which==51 ? 1 : 0);
+        var checkMoz4=(e.which==52 ? 1 : 0);
+        var checkMoz5=(e.which==53 ? 1 : 0);
+        var checkMoz6=(e.which==54 ? 1 : 0);
+    
+        if (checkMoz1){
+            
+        }
+        else if(checkMoz2){ $("body").append("<p>painoit 2</p>");
+            
+        }
+                
+        else if (checkMoz3) {$("body").append("<p>painoit 3</p>");
+            
+        }
+                
+        else if (checkMoz4) {$("body").append("<p>painoit 4</p>");
+            
+        }
+                
+        else if (checkMoz5) {$("body").append("<p>painoit 5</p>");
+            
+        }
+                
+        else if (checkMoz6) {$("body").append("<p>painoit 6</p>");
+            
+        }
+                
+    });  */
+
+
+
+
+
+
 // GOOGLE MAPS -KARTTA
 
 var map;
