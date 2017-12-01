@@ -195,6 +195,18 @@ button {
 
 /* MODAL TYYLIT */
 
+
+*, ::after, ::before {
+   box-sizing: none; 
+}
+
+
+
+.modal-open{
+  padding-right: 0px !important;
+}
+
+
 .modal.fade .modal-dialog {
   -moz-transition: none !important;
   -o-transition: none !important;
