@@ -4,7 +4,9 @@ from pykeyboard import PyKeyboard
 import time
 from time import sleep
 import serial
-ser = serial.Serial('/dev/ttyACM0', 9600)
+#ser = serial.Serial('/dev/ttyACM0', 9600) # Rasberry PI version
+ser = serial.Serial('COM3', 9600) # Windows 10 versio
+
 keyboard = PyKeyboard()
 while 1:
     button_value = ser.read()
