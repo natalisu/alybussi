@@ -10,28 +10,22 @@
 
   <!-- OMA CSS, FONT AWESOME & GOOGLE FONTS -->
   <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Barlow|Nunito" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css">
   <title>SOHJOA</title>
   <link rel="shortcut icon" href="images/favicon.ico">
 </head>
 
-<!--<body>-->
-    <body class="modal-open" style="padding-right: 0px;">
-
-
+<body class="modal-open" style="padding-right: 0px;">
   <div class="container">
+
+    <!-- YLÄPALKKI & TIEDOITTEET -->
 
     <div class="ylapalkki">
       <div class="row" id="yla">
         <div class="klopic" id="klo1"><img src="images/klo1.png" height="80px"></div>
         <div id="klo"></div>
         <div class="klopic" id="klo2"><img src="images/klo2.png" height="80px"></div>
-        <!--
-        <div class="col text-right" id="bus">
-          <p class="bustime">~5 min.</p>
-          <i class="fa fa-bus fa-4x" aria-hidden="true"></i></div>
-        -->
       </div>
 
       <div class="row tied">
@@ -39,36 +33,20 @@
       </div>
     </div>
 
-    <div class="nextBus">
-      <img src="images/busicon.png" class="busImg" height="70px">
-      <p class="busTime" id="busTime">4 min.</p>
-    </div>
-
     <!-- <img src="images/placeholder.jpg" id="naytons" alt="mainos"> -->
 
+
+    <!-- KARTTA -->
+
     <div class="row" id="map"></div>
+
+
+    <!-- NAPIT -->
+
     <div class="napit" align="center">
 
-      <!-- NAPIT -->
-
-      <!-- KUTSU -->
-      <button id="nappi1" type="button" class="btn nappi-margin" data-toggle="modal" data-target="#kutsu1"> 
-          <i class="fa fa-bus fa-5x nappi"></i>
-          <p id="kutsu"></p>
-        </button>
-
-      <div class="modal fade" id="kutsu1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h1 id="buscall"></h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- HSL -->
-      <button id="nappi2" type="button" class="btn nappi-margin hsl" data-toggle="modal" data-target="#hsl1"> <i class="fa fa-train fa-5x nappi"></i>
+      <button id="nappi2" type="button" class="btn nappi-margin hsl" data-toggle="modal" data-target="#hsl1"> <i class="fa fa-bus fa-5x nappi"></i>
         <p id="hsl"></p>
       </button>
 
@@ -77,16 +55,27 @@
           <div class="modal-content">
             <div class="modal-body hslmodal" align="left">
               <h1 id="busHead"></h1><br>
-              <p id="busText"></p>
+              <div id="busText"></div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- PALVELUT -->
-      <div class="nappi-margin">
-        <i class="fa fa-coffee fa-5x nappi"></i>
+      <button id="nappi3" type="button" class="btn nappi-margin palvelut" data-toggle="modal" data-target="#palv"> <i class="fa fa-coffee fa-5x nappi"></i>
         <p id="palvelut"></p>
+      </button>
+
+      <div class="modal fade" id="palv" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content palvcontent">
+            <div class="modal-body palvmodal" align="left">
+              <h1 id="servicesHead"></h1><br>
+              <div id="servicesText">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- INFO -->
@@ -97,10 +86,14 @@
       <div class="modal fade" id="info1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <div class="modal-body" align="left">
-              <h2 id="sohjoah"></h2>
-              <p id="sohjoa1"></p>
-              <p id="sohjoa2"></p>
+            <div class="modal-body infomodal">
+              <img src="images/logo.png" class="logo" width="700px">
+              <p id="sohjoa1" align="left"></p>
+              <p id="sohjoa2" align="left"></p>
+              <br />
+              <img src="images/qrcode.png" width="250px" class="qr">
+              <img src="images/6aika.png" width="250px" class="kuusaika">
+              <img src="images/metropolia2.png" width="400px" class="metrop">
             </div>
           </div>
         </div>
@@ -114,9 +107,9 @@
     </div>
   </div>
 
-  <div class="mainos"></div>
-
-  <script src="moment-with-locales.min.js"></script>
+  <footer class="mainos row">
+    <iframe width="1080" id="video" class="ytvideo" height="605" src="" frameborder="0"></iframe>
+  </footer>
 
   <!-- BOOTSTRAP 4 -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -124,6 +117,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
   <script type='text/javascript' src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
+
+  <script src="moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="qrcode/jquery.qrcode.min.js"></script>
 
   <script src="scripts.js"></script>
 

@@ -1,22 +1,22 @@
 {
   "fi": {
-    "kutsu": "kutsu",
-    "buscall": "Bussi kutsuttu!",
     "hsl": "HSL",
     "busHead": "Julkisen liikenteen aikataulut",
-    "palvelut": "palvelut",
+    "palvelut": "Palvelut",
+    "servicesHead": "Lähimmät palvelut",
+    "isOpen": "Auki juuri nyt!",
     "info": "info",
     "sohjoah": "SOHJOA-hanke",
-    "sohjoa1": "SOHJOA-hanke on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.",
+    "sohjoa1": " on osa Suomen kuuden suurimman kaupungin yhteistä 6Aika-strategiaa, jossa kehitetään avoimempia ja älykkäämpi palveluita. Tavoitteena on synnyttää Suomeen uutta osaamista, liiketoimintaa ja työpaikkoja. Metropolian monialaisina hankekumppaneina ovat Aalto-yliopisto, Forum Virium Helsinki, Maanmittauslaitos sekä Tampereen teknillinen yliopisto.",
     "sohjoa2": "Automaattiajoneuvojen toimintaa suomalaisissa olosuhteissa testataan osana Liikenneviraston ja Trafin rahoittamaa NordicWay –hanketta, jossa osaltaan valmistaudutaan uudentyyppisiin liikenteen palveluihin ja tieliikenteen automaatioon.",
     "lang": "kieli"
   },
   "en": {
-    "kutsu": "call bus",
-    "buscall": "Your bus is on its way!",
     "hsl": "Commute",
     "busHead": "Commute schedules",
     "palvelut": "services",
+    "isOpen": "Open now!",
+    "servicesHead": "Nearest services",
     "info": "help",
     "sohjoah": "The SOHJOA Project",
     "sohjoa1": "SOHJOA-6Aika is part of a Finnish cities’ collaborative 6Aika -project family funded by European Structural Fund. Our partners are Aalto University, Forum Virium Helsinki, Finnish Geographical Institute and Tampere University of Technology. Operation of automated vehicles in Finnish environment is tested as part of the NordicWay - project funded by Finnish Transport Safety Agency Trafi and Finnish Transport Agency Liikennevirasto. NordicWay project tackles the challenges of new traffic services and road transport automation.",
@@ -24,8 +24,6 @@
     "lang": "language"
   },
   "sv": {
-    "kutsu": "bjud buss",
-    "buscall": "Bussen kommer sig",
     "hsl": "åkning",
     "palvelut": "tjänster",
     "info": "hjälp",

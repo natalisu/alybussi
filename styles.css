@@ -11,6 +11,8 @@ body {
   margin: auto;
   height: 1980px !important;
   width: 1080px !important;
+  position: relative;
+  font-family: "Nunito";
 }
 
 .container-fluid {
@@ -62,34 +64,16 @@ body {
   margin-left: -12em;
 }
 
-
-#bus {
-  padding-top: 3em !important;
-  padding-right: 3.5em;
-}
-
-.bustime {
-  font-family: "Nunito";
-  font-size: 50px;
-  padding-right: 1em;
-  display: inline;
-  letter-spacing: 1px;
-}
-
 .tied {
   height: 55px;
-  background-color: #d3d3d3;
+  /* background-color: #d3d3d3; */
   box-shadow: 0 12px 30px -4px rgba(43, 43, 43, 0.4);
-  font-family: "Nunito";
-  letter-spacing: 1px;
-}
-
-.uvirta {
-  overflow: hidden;
+  letter-spacing: 2px;
   padding-top: 0.2em;
   font-size: 30px;
+  background-color: #7470BC;
+  color: #fff;
 }
-
 
 
 
@@ -116,7 +100,7 @@ body {
   float: right;
   margin-right: 10px;
   margin-top: 15px;
-  font-family: "Nunito";
+  
   color: #fff;
   font-weight: 600;
   letter-spacing: 3px;
@@ -164,7 +148,7 @@ body {
 }
 
 .nappi-margin {
-  margin: 60px 0 0 30px;
+  margin: 100px 0 0 30px;
   background-color: #191919;
   color: #fff;
   padding: 1.5em 0 0 0.2em;
@@ -194,18 +178,6 @@ button {
 
 
 /* MODAL TYYLIT */
-
-
-*, ::after, ::before {
-   box-sizing: none; 
-}
-
-
-
-.modal-open{
-  padding-right: 0px !important;
-}
-
 
 .modal.fade .modal-dialog {
   -moz-transition: none !important;
@@ -238,54 +210,82 @@ button {
   margin-top: 300px;
 }
 
-#hsl1 {
-  margin-top: 50px;
-}
-
-#kutsu1 > .modal-lg {
-  width: 450px !important;
-}
-
-h1,
-h2 {
-  font-family: "Barlow";
-}
-
-h1 {
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: 40px;
-}
-
-h2 {
-  font-weight: bold;
-  font-size: 35px;
-  letter-spacing: 2px;
-}
-
 p {
-  font-family: "Nunito";
+  
   font-size: 25px;
   letter-spacing: 0.7px;
 }
 
-.hslmodal {
-  margin-bottom: -50px !important;
+*,
+::after,
+::before {
+  box-sizing: none;
+}
+
+.modal-open {
+  padding-right: 0px !important;
+
+}
+
+
+
+
+
+
+
+/* HSL & PALVELUT */
+
+#hsl1,
+#palv {
+  margin-top: 50px;
+}
+
+.stop {
+  padding-bottom: 20px;
+}
+
+.service {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #busHead,
-.stop-title {
-  font-family: "Nunito";
+.stop-title,
+#servicesHead,
+.service-title {
+  
+}
+
+#busHead,
+.stop-title,
+#servicesHead {
   color: #7470BC;
   font-weight: bold;
 }
 
-#busHead {
+#busHead,
+#servicesHead {
   text-transform: uppercase;
   letter-spacing: 2.5px;
+  font-size: 40px;
 }
 
-.stop-title {
+#servicesHead {
+  font-size: 50px;
+  letter-spacing: 4px;
+  text-align: center;
+  margin-bottom: -20px !important;
+}
+
+.service-title {
+  color: #A9A6E9;
+  font-size: 30px;
+  display: inline-block;
+  padding-top: 40px;
+}
+
+.stop-title,
+.service-title {
   letter-spacing: 2px;
 }
 
@@ -294,15 +294,94 @@ p {
   white-space: pre-wrap;
 }
 
-.scheduledTime {
-  font-weight: bold;
-}
-
 ul {
   list-style-type: none;
   padding-left: 10px;
   letter-spacing: 1.5px;
+  vertical-align: top;
+  font-size: 25px;
 }
+
+.is-open {
+  font-size: 23px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-left: 30px;
+  font-weight: 600;
+}
+
+.service-address {
+  margin-top: -5px !important;
+}
+
+.opening-hours-list {
+  display: block;
+  letter-spacing: 2px;
+}
+
+
+
+/* INFO */
+
+#info1 {
+  margin-top: 50px;
+}
+
+.infomodal {
+  padding: 20px;
+}
+
+.logo {
+  margin: auto !important;
+  padding-bottom: 50px;
+}
+
+#sohjoa1:before {
+  color: #7470BC;
+  font-weight: bold;
+  font-size: 33px;
+  letter-spacing: 2px;
+  content: "SOHJOA -hanke ";
+}
+
+#sohjoa1,
+#sohjoa2 {
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  display: inline-block;
+}
+
+#sohjoa2 {
+  padding-bottom: 50px;
+}
+
+.qr {
+  float: left;
+  padding-bottom: 20px;
+  padding-left: 30px;
+}
+
+.metrop,
+.kuusaika {
+  float: right;
+  padding-right: 30px;
+}
+
+.metrop {
+  padding-top: 50px;
+}
+
+.kuusaika {
+  margin-bottom: -30px;
+  padding-top: 50px;
+}
+
+
+
+
 
 
 
@@ -322,15 +401,37 @@ ul {
   outline: none !important;
 }
 
+
 /*INFO WINDOW*/
 
 .gm-style-iw {
-    top: 15px !important;
-    left: 31px !important;
-    background-color: #fff;
-    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-    border: 1px solid rgba(72, 181, 233, 0.6);
-    border-radius: 5px 5px 5px 5px;
-    padding: 10px 10px 10px 10px;
-    text-align: center;
+  top: 15px !important;
+  left: 31px !important;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  border: 1px solid rgba(72, 181, 233, 0.6);
+  border-radius: 5px 5px 5px 5px;
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+}
+
+
+
+/* MAINOSLAATIKKO */
+
+footer {
+  height: 320px;
+  width: 1080px;
+  position: absolute;
+  bottom: 0;
+  background-color: #7470BC;
+  margin-left: -1px !important;
+  overflow: hidden;
+  box-shadow: 0px -12px 30px -4px rgba(43, 43, 43, 0.4);
+}
+
+.ytvideo {
+  margin-top: -170px;
+  margin-left: -2px !important;
+  pointer-events: none;
 }
