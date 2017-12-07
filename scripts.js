@@ -585,16 +585,16 @@ $(document).ready(function () {
 
 // NAPPULAT
 
-/*
+
 document.addEventListener("keyup", function (event) {
   event.preventDefault();
   if (event.keyCode === 49) {
     document.getElementById("nappi1").click();
   } else if (event.keyCode === 50) {
     document.getElementById("nappi2").click();
+  } else if (event.keyCode === 51) {
+    document.getElementById("nappi3").click();
   } else if (event.keyCode === 52) {
-    document.getElementById("nappi4").click();
-  } else if (event.keyCode === 53) {
     document.getElementById("langbtn").click();
   }
 });
