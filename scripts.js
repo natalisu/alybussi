@@ -590,16 +590,16 @@ $(document).ready(function () {
 // NAPPULAT
 
 document.addEventListener("keyup", function (event) {
-event.preventDefault();
-if (event.keyCode === 49) {
-  document.getElementById("nappi1").click();
-} else if (event.keyCode === 50) {
-  document.getElementById("nappi2").click();
-} else if (event.keyCode === 51) {
-  document.getElementById("nappi3").click();
-} else if (event.keyCode === 52) {
-  document.getElementById("langbtn").click();
-}
+  event.preventDefault();
+  if (event.keyCode === 49) {
+    document.getElementById("nappi1").click();
+  } else if (event.keyCode === 50) {
+    document.getElementById("nappi2").click();
+  } else if (event.keyCode === 51) {
+    document.getElementById("nappi3").click();
+  } else if (event.keyCode === 52) {
+    document.getElementById("langbtn").click();
+  }
 });
 
 /* $(document).ready(function(){
@@ -630,5 +630,5 @@ if (event.keyCode === 49) {
         
         else if (checkMoz6) {$("body").append("<p>painoit 6</p>");
         }
-    });  */
+    });
 });*/
