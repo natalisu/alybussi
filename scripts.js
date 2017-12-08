@@ -1,32 +1,23 @@
 // KELLO
 
+function checkTime(i) {
+  return (i < 10) ? "0" + i : i;
+}
+
 function startTime() {
   var today = new Date();
   var h = today.getHours();
   var m = today.getMinutes();
   var s = today.getSeconds();
+  // add a zero in front of numbers<10
   m = checkTime(m);
   s = checkTime(s);
-  document.getElementById('klo').innerHTML =
-    h + ":" + m + ":" + s;
-  var t = setTimeout(startTime, 500);
+  document.getElementById('klo').innerHTML = h + ":" + m + ":" + s;
+  t = setTimeout(function () {
+    startTime()
+  }, 500);
 }
-
-function checkTime(i) {
-  if (i < 10) {
-    i = "0" + i
-  }; // add zero in front of numbers < 10
-  return i;
-}
-
-window.onload = function () {
-  startTime();
-  getStops();
-}
-
-
-
-
+startTime();
 
 
 // NÄYTÖNSÄÄSTÄJÄ
@@ -117,6 +108,7 @@ function getNewsFeed(urlSetting) {
 
 
 
+
 // KIELEN VAIHTO
 
 var langbtn = document.getElementById("langbtn");
@@ -129,7 +121,6 @@ $(document).ready(function () {
     "lang.json",
     function (kieli) {
       function changeFin() {
-        document.getElementById("hsl").innerHTML = kieli.fi.hsl;
         document.getElementById("busHead").innerHTML = kieli.fi.busHead;
         document.getElementById("palvelut").innerHTML = kieli.fi.palvelut;
         document.getElementById("servicesHead").innerHTML = kieli.fi.servicesHead;
@@ -137,24 +128,29 @@ $(document).ready(function () {
         document.getElementById("sohjoa1").innerHTML = kieli.fi.sohjoa1;
         document.getElementById("sohjoa2").innerHTML = kieli.fi.sohjoa2;
         document.getElementById("lang").innerHTML = kieli.fi.lang;
+        document.getElementById("langlogo").src = "images/suomi.png";
       };
 
       function changeEng() {
-        document.getElementById("hsl").innerHTML = kieli.en.hsl;
+        document.getElementById("busHead").innerHTML = kieli.en.busHead;
         document.getElementById("palvelut").innerHTML = kieli.en.palvelut;
-        document.getElementById("info").innerHTML = kieli.en.info;
+        document.getElementById("servicesHead").innerHTML = kieli.en.servicesHead;
+        document.getElementById("info").innerHTML = kieli.fi.info;
         document.getElementById("sohjoa1").innerHTML = kieli.en.sohjoa1;
         document.getElementById("sohjoa2").innerHTML = kieli.en.sohjoa2;
         document.getElementById("lang").innerHTML = kieli.en.lang;
+        document.getElementById("langlogo").src = "images/english.png";
       };
 
       function changeSv() {
-        document.getElementById("hsl").innerHTML = kieli.sv.hsl;
+        document.getElementById("busHead").innerHTML = kieli.en.busHead;
         document.getElementById("palvelut").innerHTML = kieli.sv.palvelut;
-        document.getElementById("info").innerHTML = kieli.sv.info;
+        document.getElementById("servicesHead").innerHTML = kieli.en.servicesHead;
+        document.getElementById("info").innerHTML = kieli.fi.info;
         document.getElementById("sohjoa1").innerHTML = kieli.sv.sohjoa1;
         document.getElementById("sohjoa2").innerHTML = kieli.sv.sohjoa2;
         document.getElementById("lang").innerHTML = kieli.sv.lang;
+        document.getElementById("langlogo").src = "images/svenska.png";
       };
 
       var language = 1;
@@ -236,28 +232,28 @@ function initMap() {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       var fragment = document.createDocumentFragment();
       var br = document.createElement('br');
+      var container = document.createElement('div');
+      container.classList.add('services-info');
 
       // Haetaan palveluiden nimet
       var title = document.createElement('h3');
       title.classList.add('service-title');
       title.textContent = place.name;
-      fragment.appendChild(title);
+      container.appendChild(title);
 
       // Haetaan osoitteet
       var address = document.createElement('p');
       address.classList.add('service-address');
       address.textContent = place.formatted_address;
 
-      // Generoidaan QR-koodi jokaisen urlin perusteella
-      var qrcode = document.createElement('div');
-      qrcode.setAttribute("id", "qrcode");
-      $("#qrcode").qrcode({
-        width: 100,
-        height: 100,
-        text: place.url
-      });
-      // fragment.appendChild(qrcode);
-      console.log("QR created for " + place.name);
+      // Luodaan qr-koodin container
+      var qrcode = document.createElement('img');
+      qrcode.classList.add("qrcode");
+      qrcode.setAttribute("id", place.id);
+      var placeUrl = "https://www.google.com/maps/place/" + place.name.replace(/ /g, '+') + "/@" + place.geometry.location.lat() + "," + place.geometry.location.lng();
+      // https://www.google.com/maps/place/Radisson+Blu+Espoo/@60.183647,24.8341114,17z
+      qrcode.src = "http://api.qrserver.com/v1/create-qr-code/?data=" + placeUrl + "!&size=100x100";
+      container.appendChild(qrcode);
 
       var open = place.opening_hours;
       var list = document.createElement('ul');
@@ -265,10 +261,15 @@ function initMap() {
 
       function checkOpeningHours() {
         list.innerHTML = "";
+        var isOpen = document.createElement('p');
+        isOpen.classList.add('is-open');
 
         if (!open) {
           console.warn("No opening hours are available for " + place.name);
-          fragment.appendChild(address);
+          isOpen.style.color = "#d12323";
+          isOpen.textContent = "No details available";
+          container.appendChild(address);
+          container.appendChild(isOpen);
         } else {
           var date = new Date();
           var weekday = new Array(7);
@@ -281,9 +282,6 @@ function initMap() {
           weekday[6] = "lauantai";
 
           var currentDate = weekday[date.getDay()];
-
-          var isOpen = document.createElement('p');
-          isOpen.classList.add('is-open');
 
           if (open.open_now === true) {
 
@@ -308,15 +306,16 @@ function initMap() {
             isOpen.textContent = "closed";
           }
 
-          fragment.appendChild(address);
-          fragment.appendChild(isOpen);
+          container.appendChild(address);
+          container.appendChild(isOpen);
         };
 
       };
 
       checkOpeningHours();
       setInterval(checkOpeningHours, 15 * 60 * 1000);
-      fragment.appendChild(list);
+      container.appendChild(list);
+      fragment.appendChild(container);
 
       document.getElementById("servicesText").appendChild(fragment);
 
@@ -327,7 +326,7 @@ function initMap() {
 
   function getServices(places, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-      places.forEach(function (place) {
+      places.slice(0, 7).forEach(function (place) {
         var data = {
           name: place.name,
           placeId: place.place_id
@@ -519,23 +518,29 @@ function getStops() {
 
           // Haetaan pysäkkinimet
           var title = document.createElement('h3');
-          title.classList.add('stop-title');
-          title.textContent = edge.node.stop.name + " (etäisyys " + distance(start_lat, start_lon, lat, lon) + "m)";
+          title.classList.add('stop-title')
+          title.textContent = edge.node.stop.name + " (" + distance(start_lat, start_lon, lat, lon) + "m)";
           container.appendChild(title);
 
           var list = document.createElement('ul');
           list.classList.add('stop-list');
 
           // Haetaan seuraavien lähtevien bussien aikataulut
-          var times = edge.node.stop.stoptimesForPatterns.slice(0, 3).forEach(
+          var times = edge.node.stop.stoptimesForPatterns.forEach(
             function (data) {
-              var time = moment.utc(data.stoptimes[0].scheduledDeparture * 1000).format('HH:mm');
-              var name = data.pattern.name.slice(0, -13).replace(' to ', ' ').replace(' (HSL:2222209)', '');
+              var today = new Date();
+              var currentSeconds = today.getSeconds() + (60 * today.getMinutes()) + (60 * 60 * today.getHours());
+              var diff = Math.abs(data.stoptimes[0].scheduledDeparture - currentSeconds);
 
-              var listItem = document.createElement('li');
-              listItem.classList.add('stop-list-item');
-              listItem.textContent = (time + '  |  ' + name);
-              list.appendChild(listItem);
+              if (diff <= 900) {
+                var time = moment.utc(data.stoptimes[0].scheduledDeparture * 1000).format('HH:mm');
+                var name = data.pattern.name.slice(0, -13).replace(' to ', ' ').replace(' (HSL:2222209)', '').replace(' (HSL:2215225)', '');
+
+                var listItem = document.createElement('li');
+                listItem.classList.add('stop-list-item');
+                listItem.textContent = (time + '  |  ' + name);
+                list.appendChild(listItem);
+              }
             });
 
           container.appendChild(list);
@@ -550,7 +555,6 @@ function getStops() {
 };
 
 getStops();
-
 setInterval(getStops, 60000);
 
 
@@ -585,18 +589,17 @@ $(document).ready(function () {
 
 // NAPPULAT
 
-
 document.addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 49) {
-    document.getElementById("nappi1").click();
-  } else if (event.keyCode === 50) {
-    document.getElementById("nappi2").click();
-  } else if (event.keyCode === 51) {
-    document.getElementById("nappi3").click();
-  } else if (event.keyCode === 52) {
-    document.getElementById("langbtn").click();
-  }
+event.preventDefault();
+if (event.keyCode === 49) {
+  document.getElementById("nappi1").click();
+} else if (event.keyCode === 50) {
+  document.getElementById("nappi2").click();
+} else if (event.keyCode === 51) {
+  document.getElementById("nappi3").click();
+} else if (event.keyCode === 52) {
+  document.getElementById("langbtn").click();
+}
 });
 
 /* $(document).ready(function(){
@@ -628,3 +631,4 @@ document.addEventListener("keyup", function (event) {
         else if (checkMoz6) {$("body").append("<p>painoit 6</p>");
         }
     });  */
+});*/

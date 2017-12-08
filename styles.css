@@ -16,7 +16,7 @@ body {
 }
 
 .container-fluid {
-  background-color: #f0f0f0;
+  background-color: #191919;
 }
 
 
@@ -79,37 +79,6 @@ body {
 
 
 
-/* BUSSIN SAAPUMISAIKA */
-
-.nextBus {
-  width: 420px !important;
-  height: 100px;
-  background-color: #7470BC;
-  float: left;
-  border-radius: 0px 0px 20px 20px;
-}
-
-.busImg {
-  display: inline-block;
-  margin-left: 10px;
-  margin-top: 15px;
-}
-
-.busTime {
-  display: inline;
-  float: right;
-  margin-right: 10px;
-  margin-top: 15px;
-  
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: 3px;
-  font-size: 60px;
-}
-
-
-
-
 
 /* KARTTA & NÄYTÖNSÄÄSTÄJÄ */
 
@@ -143,10 +112,6 @@ body {
   margin-right: -0.9em !important;
 }
 
-.nappi {
-  color: #7470BC;
-}
-
 .nappi-margin {
   margin: 100px 0 0 30px;
   background-color: #191919;
@@ -171,6 +136,22 @@ button {
   font-weight: bold;
   font-size: 20px;
 
+}
+
+#hsllogo {
+  height: 130px;
+  margin-top: -20px;
+}
+
+#langlogo {
+  width: 120px;
+  margin-top: 15px;
+}
+
+#pallogo,
+#infologo {
+  height: 100px;
+  margin-top: -5px;
 }
 
 
@@ -211,7 +192,7 @@ button {
 }
 
 p {
-  
+
   font-size: 25px;
   letter-spacing: 0.7px;
 }
@@ -241,19 +222,12 @@ p {
 }
 
 .stop {
-  padding-bottom: 20px;
+  padding: 10px 20px 10px 20px;
 }
 
 .service {
   padding-left: 20px;
   padding-right: 20px;
-}
-
-#busHead,
-.stop-title,
-#servicesHead,
-.service-title {
-  
 }
 
 #busHead,
@@ -267,13 +241,12 @@ p {
 #servicesHead {
   text-transform: uppercase;
   letter-spacing: 2.5px;
-  font-size: 40px;
+  font-size: 50px;
+  text-align: center;
 }
 
 #servicesHead {
-  font-size: 50px;
   letter-spacing: 4px;
-  text-align: center;
   margin-bottom: -20px !important;
 }
 
@@ -282,6 +255,7 @@ p {
   font-size: 30px;
   display: inline-block;
   padding-top: 40px;
+  width: 500px;
 }
 
 .stop-title,
@@ -289,9 +263,17 @@ p {
   letter-spacing: 2px;
 }
 
+.palvcontent {
+  padding-left: 40px;
+}
+
 #busHead,
 #busText {
   white-space: pre-wrap;
+}
+
+#busHead {
+  text-align: center;
 }
 
 ul {
@@ -320,6 +302,17 @@ ul {
   letter-spacing: 2px;
 }
 
+.services-info {
+  height: 200px;
+}
+
+.qrcode {
+  float: left;
+  display: inline-block;
+  width: 100px;
+  margin: 50px 50px 0 0;
+  padding-bottom: 40px;
+}
 
 
 /* INFO */
@@ -329,20 +322,12 @@ ul {
 }
 
 .infomodal {
-  padding: 20px;
+  padding: 40px 20px 40px 20px;
 }
 
 .logo {
   margin: auto !important;
   padding-bottom: 50px;
-}
-
-#sohjoa1:before {
-  color: #7470BC;
-  font-weight: bold;
-  font-size: 33px;
-  letter-spacing: 2px;
-  content: "SOHJOA -hanke ";
 }
 
 #sohjoa1,
@@ -351,7 +336,12 @@ ul {
   letter-spacing: 1.5px;
   padding-left: 20px;
   padding-bottom: 20px;
-  display: inline-block;
+}
+
+#sohjoa1,
+#sohjoa2 {
+  display: inline !important;
+  float: left
 }
 
 #sohjoa2 {
@@ -362,6 +352,8 @@ ul {
   float: left;
   padding-bottom: 20px;
   padding-left: 30px;
+  width: 250px;
+  height: 250px;
 }
 
 .metrop,
