@@ -13,6 +13,7 @@ body {
   width: 1080px !important;
   position: relative;
   font-family: "Nunito";
+  overflow: hidden;
 }
 
 .container-fluid {
@@ -140,18 +141,20 @@ button {
 
 #hsllogo {
   height: 130px;
-  margin-top: -20px;
+  margin-top: -25px;
 }
 
 #langlogo {
-  width: 120px;
+  width: 110px;
   margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 #pallogo,
 #infologo {
-  height: 100px;
+  height: 90px;
   margin-top: -5px;
+  margin-bottom: 5px;
 }
 
 
@@ -302,8 +305,13 @@ ul {
   letter-spacing: 2px;
 }
 
+#servicesText {
+  padding-bottom: 20px;
+}
+
 .services-info {
   height: 200px;
+  padding-bottom: 50px;
 }
 
 .qrcode {
@@ -327,7 +335,7 @@ ul {
 
 .logo {
   margin: auto !important;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 #sohjoa1,
@@ -413,7 +421,7 @@ ul {
 
 footer {
   height: 320px;
-  width: 1080px;
+  width: 1080px !important;
   position: absolute;
   bottom: 0;
   background-color: #7470BC;

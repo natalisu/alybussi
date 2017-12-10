@@ -1,26 +1,15 @@
-// KELLO
+// CLOCK FUNCTIONS
 
-function checkTime(i) {
-  return (i < 10) ? "0" + i : i;
-}
+// Seeing as you're already using moment, you can use that for all your 
+// date formatting needs. You can also use setInterval rather than setTimeout
+var clock = document.getElementById('klo');
 
-function startTime() {
-  var today = new Date();
-  var h = today.getHours();
-  var m = today.getMinutes();
-  var s = today.getSeconds();
-  // add a zero in front of numbers<10
-  m = checkTime(m);
-  s = checkTime(s);
-  document.getElementById('klo').innerHTML = h + ":" + m + ":" + s;
-  t = setTimeout(function () {
-    startTime()
-  }, 500);
-}
-startTime();
+setInterval(function () {
+  var time = moment().format('HH:mm:ss');
+  clock.textContent = time;
+}, 500);
 
-
-// NÄYTÖNSÄÄSTÄJÄ
+// SCREEN SAVER AND MODAL TIMEOUTS
 
 $("#naytons").click(function () {
   $("#naytons").fadeOut(800);
@@ -42,18 +31,31 @@ $(document).ready(function () {
 
 function timerIncrement() {
   idleTime = idleTime + 1;
-  if (idleTime > 2) {
+  if (idleTime > 5) {
     $("#naytons").fadeIn(800);
     // Jos näyttö ollut inaktiivisena 3 min, näytönsäästäjä palautuu
   }
-}
+};
 
+$('#nappi1').click(function () {
+  setTimeout(function () {
+    $('#hsl1').modal('hide');
+  }, 3 * 60 * 1000);
+});
 
+$('#nappi2').click(function () {
+  setTimeout(function () {
+    $('#palv').modal('hide');
+  }, 3 * 60 * 1000);
+});
 
+$('#nappi3').click(function () {
+  setTimeout(function () {
+    $('#info1').modal('hide');
+  }, 3 * 60 * 1000);
+});
 
-
-
-// UUTISVIRTA & TIEDOITEHAKU
+// NEWS MARQUEE
 
 function uutisVirta() {
   $('.uvirta').marquee({
@@ -94,6 +96,8 @@ function getNewsFeed(urlSetting) {
         var news = edge.node.title.replace(/&quot;/g, '\"');
         var text = document.createTextNode(news);
         fragment.appendChild(text);
+
+        // This is nasty. You should be adding a span with your content and styling the span, not forcing in a lot of nbsp
         fragment.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"));
       });
 
@@ -103,13 +107,7 @@ function getNewsFeed(urlSetting) {
   );
 };
 
-
-
-
-
-
-
-// KIELEN VAIHTO
+// LANGUAGE BUTTON FUNCTIONS
 
 var langbtn = document.getElementById("langbtn");
 
@@ -143,9 +141,9 @@ $(document).ready(function () {
       };
 
       function changeSv() {
-        document.getElementById("busHead").innerHTML = kieli.en.busHead;
+        document.getElementById("busHead").innerHTML = kieli.sv.busHead;
         document.getElementById("palvelut").innerHTML = kieli.sv.palvelut;
-        document.getElementById("servicesHead").innerHTML = kieli.en.servicesHead;
+        document.getElementById("servicesHead").innerHTML = kieli.sv.servicesHead;
         document.getElementById("info").innerHTML = kieli.fi.info;
         document.getElementById("sohjoa1").innerHTML = kieli.sv.sohjoa1;
         document.getElementById("sohjoa2").innerHTML = kieli.sv.sohjoa2;
@@ -185,25 +183,41 @@ $(document).ready(function () {
 
 });
 
+// GOOGLE SHEETS
+/* Here is where I access my sheets database, I would want to use it so it's easier for the customer to input values.
+I only need it to store 3 things: 
+- "sijainti" variable (current location, two values: latitude & longitude)
+- "locations" variable (marks bus stops on the map, three values: name, lat & lon)
+- Polyline markers (an array of locations that draw a line on the map, serves as the bus route, two values: lat & lon)
 
+I'll mark each variable that I'd want to switch to the database in the code later on
+*/
 
-
-
-
-// GOOGLE MAPS -KARTTA
-
-var map;
-var infowindow;
-var sijainti = {
-  lat: 60.1815,
-  lng: 24.830
+// With fetch, you need to format the response data, we want json, so we're calling the 
+// appropriate method here and returning it
+function getJson(response) {
+  return response.json();
 }
 
+// @TODO: Handle errors in here
+function handleError(error) {
+  console.error(error);
+}
 
-function initMap() {
+// GOOGLE MAPS, basically a horrible bunch of map functions
+var map;
+var infowindow;
+
+function createMap(sheetData) {
+  var sijainti = {
+    lat: parseFloat(sheetData.values[0][0]),
+    lng: parseFloat(sheetData.values[0][1]),
+  };
+
+  console.log(sijainti);
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: sijainti,
+    center: sijainti, // I need to access sijainti here
     zoom: 17,
     zoomControl: false,
     streetViewControl: false,
@@ -213,6 +227,7 @@ function initMap() {
     fullscreenControl: false
   });
 
+  // Second thing I would like to switch to the database. These mark the bus stops on the map
   var locations = [
       ['VALIMO', 60.183431, 24.828609, ],
       ['ACRE', 60.182013, 24.830982],
@@ -220,7 +235,7 @@ function initMap() {
     ];
 
   var request = {
-    location: sijainti,
+    location: sijainti, // Also here I need to access sijainti
     types: ['airport', 'amusement_park', 'aquarium', 'art-gallery', 'atm', 'bakery', 'bank', 'bar', 'beauty-salon', 'book_store', 'bowling_alley', 'cafe', 'cemetery', 'church', 'city_hall', 'clothing_store', 'convenience_store', 'dentist', 'department_store', 'doctor', 'electronics_store', 'florist', 'furniture-store', 'gas_station', 'gym', 'hair_care', 'hardware_store', 'home_goods_store', 'hospital', 'jewelry_store', 'laundry', 'library', 'liquor_store', 'lodging', 'meal_delivery', 'meal-takeaway', 'movie_rental', 'movie_theater', 'museum', 'night-club', 'park', 'pet_store', 'pharmacy', 'police', 'post_office', 'restaurant', 'school', 'shoe_store', 'shopping_mall', 'spa', 'stadium', 'store', 'university', 'zoo'],
     radius: '600'
   };
@@ -228,6 +243,7 @@ function initMap() {
   service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, getServices);
 
+  // Looks up details for each of the generated services on the map
   function getPlaceDetails(place, status, title) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       var fragment = document.createDocumentFragment();
@@ -235,18 +251,18 @@ function initMap() {
       var container = document.createElement('div');
       container.classList.add('services-info');
 
-      // Haetaan palveluiden nimet
+      // Service names
       var title = document.createElement('h3');
       title.classList.add('service-title');
       title.textContent = place.name;
       container.appendChild(title);
 
-      // Haetaan osoitteet
+      // Service addresses
       var address = document.createElement('p');
       address.classList.add('service-address');
       address.textContent = place.formatted_address;
 
-      // Luodaan qr-koodin container
+      // Creates a container for the QR code
       var qrcode = document.createElement('img');
       qrcode.classList.add("qrcode");
       qrcode.setAttribute("id", place.id);
@@ -259,10 +275,13 @@ function initMap() {
       var list = document.createElement('ul');
       list.classList.add('opening-hours-list');
 
+      var isOpen = document.createElement('p');
+      isOpen.classList.add('is-open');
+
+      // Checks if the places are open duh
       function checkOpeningHours() {
         list.innerHTML = "";
-        var isOpen = document.createElement('p');
-        isOpen.classList.add('is-open');
+        isOpen.innerHTML = "";
 
         if (!open) {
           console.warn("No opening hours are available for " + place.name);
@@ -338,6 +357,7 @@ function initMap() {
 
   var marker, i;
 
+  // Polyline markers, here is where I need to use "locations"
   for (i = 0; i < locations.length; i++) {
     marker = new google.maps.Marker({
       position: new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -352,7 +372,7 @@ function initMap() {
       }
     });
 
-    // InfoWindow content
+    // InfoWindow content, also using "locations"
     var content = locations[i][0];
 
     var infowindow = new google.maps.InfoWindow({
@@ -367,7 +387,7 @@ function initMap() {
       // Reference to the DIV that wraps the bottom of infowindow
       var iwOuter = $('.gm-style-iw');
 
-      // Poista infowindow:n häntä
+      // Removes the tail from the info window
       google.maps.event.addListenerOnce(map, 'idle', function () {
         jQuery('.gm-style-iw').prev('div').remove();
       });
@@ -386,9 +406,7 @@ function initMap() {
     scale: 4
   };
 
-  // Create the polyline, passing the symbol in the 'icons' property.
-  // Give the line an opacity of 0.
-  // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
+  // Creates the polyline, these coordinates I would want in the database as well
   var line = new google.maps.Polyline({
     path: [{
         lat: 60.183341,
@@ -446,6 +464,104 @@ function initMap() {
           }],
     map: map
   });
+
+  // BUS STOP QUERY
+  function getStops() {
+    document.getElementById("busText").innerHTML = '';
+
+    // Here I need to use "sijainti" as well to search the bus stops based on current location
+    var query = JSON.stringify({
+      query: '{ stopsByRadius(lat: ' + sijainti.lat + ', lon: ' + sijainti.lng + ', radius: 500) { edges { node { stop { name, lat, lon, stoptimesForPatterns(numberOfDepartures: 1) { pattern { name } stoptimes { scheduledDeparture } } } } } } }'
+    });
+
+    $.ajax({
+      type: "POST",
+      url: "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
+      data: query,
+      contentType: 'application/json; charset=utf-8',
+      success: function (pysakit) {
+        console.log('Refreshing stop times');
+        document.getElementById("busText").innerHTML = '';
+        var fragment = document.createDocumentFragment();
+        var results = pysakit.data.stopsByRadius.edges.forEach(
+          function (edge) {
+            // Sijainti here as well
+            var start_lat = sijainti.lat;
+            var start_lon = sijainti.lng;
+            var lat = edge.node.stop.lat;
+            var lon = edge.node.stop.lon;
+
+            // Calculates distance from current location to the bus stop
+            function distance(lat1, lon1, lat2, lon2) {
+              var p = 0.017453292519943295;
+              var c = Math.cos;
+              var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+                c(lat1 * p) * c(lat2 * p) *
+                (1 - c((lon2 - lon1) * p)) / 2;
+
+              var result = 12742 * Math.asin(Math.sqrt(a));
+              result = result.toFixed(3) * 1000;
+              return result;
+            }
+
+            var container = document.createElement('div');
+            container.classList.add('stop');
+            var br = document.createElement('br');
+
+            // Bus stop names
+            var title = document.createElement('h3');
+            title.classList.add('stop-title')
+            title.textContent = edge.node.stop.name + " (" + distance(start_lat, start_lon, lat, lon) + "m)";
+            container.appendChild(title);
+
+            var list = document.createElement('ul');
+            list.classList.add('stop-list');
+
+            // Filters bus schedules more than 15 minutes away from current time
+            edge.node.stop.stoptimesForPatterns.filter(function (item) {
+              var today = new Date();
+              var currentSeconds = today.getSeconds() + (60 * today.getMinutes()) + (60 * 60 * today.getHours());
+              var diff = Math.abs(item.stoptimes[0].scheduledDeparture - currentSeconds);
+
+              return diff <= 900;
+            }).map(function (item) {
+              var time = moment.utc(item.stoptimes[0].scheduledDeparture * 1000).format('HH:mm');
+              var name = item.pattern.name.slice(0, -13).replace(' to ', ' ').replace(' (HSL:2222209)', '').replace(' (HSL:2215225)', '').replace(', tulo', '');
+
+              return {
+                time: time,
+                name: name,
+              };
+            }).sort(function (a, b) {
+              if (a.time < b.time) {
+                return -1;
+              }
+
+              if (a.time > b.time) {
+                return 1;
+              }
+
+              return 0;
+            }).splice(0, 4).forEach(function (item) {
+              var listItem = document.createElement('li');
+              listItem.classList.add('stop-list-item');
+              listItem.textContent = (item.time + '  |  ' + item.name);
+              list.appendChild(listItem);
+            });
+
+            container.appendChild(list);
+            container.appendChild(br);
+            fragment.appendChild(container);
+
+            document.getElementById("busText").appendChild(fragment);
+
+          });
+      }
+    })
+  };
+
+  getStops();
+  setInterval(getStops, 60000);
 }
 
 function callback(results, status) {
@@ -469,97 +585,15 @@ function createMarker(place) {
   });
 }
 
+// We use fetch because it's cool and lets use use promises
+fetch("https://sheets.googleapis.com/v4/spreadsheets/1oOiSqkOp_WEj7f21opfQzqpozwEHTb-K9YES7p-Ib8g/values/A3%3AB3?fields=values&key=AIzaSyAsKit0QXl6tApOMluYh8do3jaKrwfyUxs")
+  .then(getJson)
+  .then(createMap)
+  .catch(handleError);
 
 
 
-
-// PYSÄKKIHAKU
-
-function getStops() {
-  document.getElementById("busText").innerHTML = '';
-
-  var query = JSON.stringify({
-    query: '{ stopsByRadius(lat: ' + sijainti.lat + ', lon: ' + sijainti.lng + ', radius: 500) { edges { node { stop { name, lat, lon, stoptimesForPatterns(numberOfDepartures: 1) { pattern { name } stoptimes { scheduledDeparture } } } } } } }'
-  });
-
-  $.ajax({
-    type: "POST",
-    url: "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
-    data: query,
-    contentType: 'application/json; charset=utf-8',
-    success: function (pysakit) {
-      console.log('Pysäkkihaku käynnissä');
-      document.getElementById("busText").innerHTML = '';
-      var fragment = document.createDocumentFragment();
-      var results = pysakit.data.stopsByRadius.edges.forEach(
-        function (edge) {
-          var start_lat = sijainti.lat;
-          var start_lon = sijainti.lng;
-          var lat = edge.node.stop.lat;
-          var lon = edge.node.stop.lon;
-
-          // Laske etäisyys oman sijainnin ja kaikkien pysäkkien välillä
-          function distance(lat1, lon1, lat2, lon2) {
-            var p = 0.017453292519943295;
-            var c = Math.cos;
-            var a = 0.5 - c((lat2 - lat1) * p) / 2 +
-              c(lat1 * p) * c(lat2 * p) *
-              (1 - c((lon2 - lon1) * p)) / 2;
-
-            var result = 12742 * Math.asin(Math.sqrt(a));
-            result = result.toFixed(3) * 1000;
-            return result;
-          }
-
-          // Tehdään container, jotta elementtejä on helpompi muokata
-          var container = document.createElement('div');
-          container.classList.add('stop');
-          var br = document.createElement('br');
-
-          // Haetaan pysäkkinimet
-          var title = document.createElement('h3');
-          title.classList.add('stop-title')
-          title.textContent = edge.node.stop.name + " (" + distance(start_lat, start_lon, lat, lon) + "m)";
-          container.appendChild(title);
-
-          var list = document.createElement('ul');
-          list.classList.add('stop-list');
-
-          // Haetaan seuraavien lähtevien bussien aikataulut
-          var times = edge.node.stop.stoptimesForPatterns.forEach(
-            function (data) {
-              var today = new Date();
-              var currentSeconds = today.getSeconds() + (60 * today.getMinutes()) + (60 * 60 * today.getHours());
-              var diff = Math.abs(data.stoptimes[0].scheduledDeparture - currentSeconds);
-
-              if (diff <= 900) {
-                var time = moment.utc(data.stoptimes[0].scheduledDeparture * 1000).format('HH:mm');
-                var name = data.pattern.name.slice(0, -13).replace(' to ', ' ').replace(' (HSL:2222209)', '').replace(' (HSL:2215225)', '');
-
-                var listItem = document.createElement('li');
-                listItem.classList.add('stop-list-item');
-                listItem.textContent = (time + '  |  ' + name);
-                list.appendChild(listItem);
-              }
-            });
-
-          container.appendChild(list);
-          container.appendChild(br);
-          fragment.appendChild(container);
-
-          document.getElementById("busText").appendChild(fragment);
-
-        });
-    }
-  })
-};
-
-getStops();
-setInterval(getStops, 60000);
-
-
-
-/* MAINOSVIDEO */
+// FOOTER VIDEO
 
 $(document).ready(function () {
 
@@ -587,7 +621,7 @@ $(document).ready(function () {
 
 
 
-// NAPPULAT
+// ARDUINO BUTTONS, ignore plz
 
 document.addEventListener("keyup", function (event) {
   event.preventDefault();

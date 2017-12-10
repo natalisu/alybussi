@@ -20,11 +20,11 @@
   },
   "sv": {
     "hsl": "åkning",
-    "busHead": "",
+    "busHead": "pendlingsschema",
     "palvelut": "tjänster",
-    "servicesHead": "",
-    "sohjoa1": "SOHJOA-6Aika är en del av en finländsk städers samarbetspartner 6Aika-projektfamilj finansierad av Europeiska strukturfonden. Våra partners är Aalto University, Forum Virium Helsinki, Finlands Lantmäteriverket och Tammerfors tekniska högskola. Drift av automatiserade vehikel i finsk miljö testas som en del av NordicWay-projektet, finansierat av Trafiksäkerhetsverket Trafi och Trafikverket. NordicWay-projektet förbereder sig för nya trafiktjänster och vägtransportautomatisering.",
-    "sohjoa2": "SOHJOA-projektets huvudsyfte är att skapa en verklig möjlighet för finländska företag att utveckla nya produkt- och tjänstidéer som autonom rörlighet kräver eller tillåter. Projektet skapar en 'innovationsplattform' för företag, en funktionell busslinje där företag kan ta med sig sina produkter till utveckling och experiment. Projektet ökar också stads förståelsen för utveckling av rörlighet.",
+    "servicesHead": "närmaste tjänster",
+    "sohjoa1": "SOHJOA-6Aika är en del av en finländska städers samarbetspartner 6Aika-projektfamilj finansierad av Europeiska strukturfonden. Våra partners är Aalto University, Forum Virium Helsinki, Finlands Lantmäteri och Tammerfors Tekniska högskola. Drift av automatiserade fordon i finsk miljö testas som en del av NordicWay-projektet, finansierat av Trafiksäkerhetsverket Trafi och Trafikverket. NordicWay-projektet tacklar utmaningarna av nya trafiktjänster och vägtransportautomatisering.",
+    "sohjoa2": "SOHJOA-projektets huvudsyfte är att Finland ska ligga i framkant i utvecklingen av automatiserade vägsystem. Övergången mot vägtrafiksautomatisering innebär att det kommer att utvecklas nya exportmöjligheter för företag. Med allt detta så kommer projektet att skapa en öppen innovationsplattform som företag kan utnyttja för att utveckla nya produkt- och tjänstidéer. De potentiella nya operativa modellerna, produkter och tjänster kommer antingen stödja allsidig drift av automatiserade system eller dra nytta av det.",
     "lang": "språk"
   }
 }
