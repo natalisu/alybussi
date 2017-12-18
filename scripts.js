@@ -2,9 +2,16 @@
 var clock = document.getElementById('klo');
 
 setInterval(function () {
-  var time = moment().format('HH:mm:ss');
+  var time = moment().format('HH:mm');
   clock.textContent = time;
 }, 500);
+
+moment.locale('fi');
+var weekday = moment().format('dddd');
+var fullDate = moment().format('LL');
+
+$('#weekday').text(weekday + ',');
+$('#fulldate').text(fullDate);
 
 
 
@@ -17,9 +24,6 @@ $("#naytons").click(function () {
 var idleTime = 0;
 $(document).ready(function () {
   var idleInterval = setInterval(timerIncrement, 60000);
-  $(this).mousemove(function (e) {
-    idleTime = 0;
-  });
   $(this).keypress(function (e) {
     idleTime = 0;
   });
@@ -202,32 +206,189 @@ function handleError(error) {
 
 var map;
 var infowindow;
+let generatedMarkerPath = [];
 
 function createMap(sheetData) {
-  var sijainti = {
-    lat: parseFloat(sheetData.values[0][0]),
-    lng: parseFloat(sheetData.values[0][1]),
-  };
+  sheetData = sheetData.values.filter(value => Object.keys(value).length !== 0).map((array) => {
+    if (array.length === 1) {
+      return array[0];
+    }
 
-  console.log(sijainti);
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: sijainti, // I need to access sijainti here
-    zoom: 17,
-    zoomControl: false,
-    streetViewControl: false,
-    scrollwheel: false,
-    draggable: false,
-    mapTypeControl: false,
-    fullscreenControl: false
+    return array;
   });
 
-  // Nämä Google Sheetsiin
-  var locations = [
-      ['VALIMO', 60.183431, 24.828609, ],
-      ['ACRE', 60.182013, 24.830982],
-      ['INNOVATION<br>ALLEY', 60.180732, 24.831549]
-    ];
+  var sijainti = sheetData.slice(sheetData.indexOf('1. OMA SIJAINTI (kartan keskipiste)') + 2, sheetData.indexOf('2. ÄLYBUSSIN PYSÄKIT (markerit kartalla)'));
+
+  sijainti = {
+    lat: parseFloat(sijainti[0][0]),
+    lng: parseFloat(sijainti[0][1])
+  };
+
+  var locations = sheetData.slice(sheetData.indexOf('2. ÄLYBUSSIN PYSÄKIT (markerit kartalla)') + 2, sheetData.indexOf('3. ÄLYBUSSIN REITIN KOORDINAATIT'));
+
+  var polylines = sheetData.slice(sheetData.indexOf('3. ÄLYBUSSIN REITIN KOORDINAATIT') + 2);
+  var path = polylines.map(item => ({
+    lat: parseFloat(item[0]),
+    lng: parseFloat(item[1]),
+  }));
+
+  /*
+  var sijainti = {
+    lat: 60.1815,
+    lng: 24.83
+  }
+  */
+  console.log(sheetData);
+
+
+
+  let generatedMarkerPath = [];
+  let map;
+  const icon = {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Green_mark_dot.svg/2000px-Green_mark_dot.svg.png',
+    scaledSize: new google.maps.Size(20, 20), // scaled size
+    origin: new google.maps.Point(0, 0), // origin
+    anchor: new google.maps.Point(5, 5) // anchor
+  };
+
+  function drawArc(fromPoint, toPoint) {
+    let pointsNo = 30;
+    let latDelta = (toPoint.lat() - fromPoint.lat()) / pointsNo;
+    let lngDelta = (toPoint.lng() - fromPoint.lng()) / pointsNo;
+    let positions = [];
+    for (let i = 0; i < pointsNo; i++) {
+      let curLat = fromPoint.lat() + i * latDelta;
+      let curLng = fromPoint.lng() + i * lngDelta;
+      positions.push(new google.maps.LatLng(curLat, curLng));
+
+      let curMarker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(curLat, curLng),
+        visible: false,
+        icon: icon
+      });
+      generatedMarkerPath.push(curMarker);
+    }
+  }
+
+  function drawPath(busPath) {
+    for (i = 0; i < busPath.length - 1; i++) {
+      let c1 = busPath[i];
+      let c2 = busPath[i + 1];
+      //console.log('c1: '+c1);
+      //console.log('c2: '+c2);
+      let startPos = new google.maps.LatLng(c1[0], c1[1]);
+      let endPos = new google.maps.LatLng(c2[0], c2[1]);
+      drawArc(startPos, endPos);
+    }
+  }
+
+  function showMovingVehicle(markers, index, delay) {
+    if (index > 0)
+      markers[index - 1].setVisible(false);
+    else {
+      markers[markers.length - 1].setVisible(false);
+    }
+
+    markers[index].setVisible(true);
+    if (index < markers.length - 1) {
+      setTimeout(function () {
+        showMovingVehicle(markers, index + 1, delay);
+      }, delay);
+    } else {
+      showMovingVehicle(markers, 0, delay);
+    }
+  }
+
+  // duplicate coordinates so that bus will come back the same route
+  function createRoundTrip(coordinateArray) {
+    return coordinateArray.concat(coordinateArray.slice().reverse());
+
+  }
+
+  $('input[type=button]').click(function () {
+    console.log('click');
+    let delay = 40;
+    showMovingVehicle(generatedMarkerPath, 0, delay);
+  });
+
+
+  // coming now from file otaniemi.js
+  // 1. give an array of lat-lon pairs to drawPath-function, then call showMovingVehicle (line 73)
+  let otaniemi = [
+    [
+       60.183341,
+       24.828418
+    ],
+    [
+       60.183233,
+       24.828193
+    ],
+    [
+       60.182937,
+       24.828823
+    ],
+    [
+       60.182502,
+       24.829644
+    ],
+    [
+       60.182190,
+       24.830331
+    ],
+    [
+       60.182009,
+       24.830701
+    ],
+    [
+       60.181492,
+       24.831087
+    ],
+    [
+       60.181151,
+       24.831280
+    ],
+    [
+       60.180983,
+       24.830845
+    ],
+    [
+       60.180930,
+       24.830856
+    ],
+    [
+       60.180650,
+       24.831092
+    ],
+    [
+       60.180705,
+       24.831433
+    ]
+ ]
+
+  initializeMap();
+  const otaniemiBackAndForth = createRoundTrip(otaniemi);
+  drawPath(otaniemiBackAndForth);
+
+
+  function initializeMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: sijainti,
+      zoom: 17,
+      zoomControl: false,
+      streetViewControl: false,
+      scrollwheel: false,
+      draggable: false,
+      mapTypeControl: false,
+      fullscreenControl: false
+    });
+  }
+
+
+
+
+
+
 
   var request = {
     location: sijainti,
@@ -400,56 +561,22 @@ function createMap(sheetData) {
     scale: 4
   };
 
-  // Polyline koordinaatit, nämä Google Sheetsiin
   var line = new google.maps.Polyline({
+
+    /*
     path: [{
         lat: 60.183341,
         lng: 24.828418
       },
+        ...
       {
-        lat: 60.183233,
-        lng: 24.828193
-      },
-      {
-        lat: 60.182937,
-        lng: 24.828823
-            },
-      {
-        lat: 60.182502,
-        lng: 24.829644
-            },
-      {
-        lat: 60.182190,
-        lng: 24.830331
-            },
-      {
-        lat: 60.182009,
-        lng: 24.830701
-            },
-      {
-        lat: 60.181492,
-        lng: 24.831087
-            },
-      {
-        lat: 60.181151,
-        lng: 24.831280
-            },
-      {
-        lat: 60.180983,
-        lng: 24.830845
-            },
-      {
-        lat: 60.180930,
-        lng: 24.830856
-            },
-      {
-        lat: 60.180650,
-        lng: 24.831092
-            },
-      {
-        lat: 60.180705,
-        lng: 24.831433
-            }],
+        lat: ...,
+        lng: ...
+      }
+    }],      
+     */
+
+    path: path,
     strokeOpacity: 0,
     icons: [{
       icon: lineSymbol,
@@ -458,9 +585,6 @@ function createMap(sheetData) {
           }],
     map: map
   });
-
-
-
 
   // BUSSIPYSÄKKIEN HAKU
 
@@ -507,7 +631,6 @@ function createMap(sheetData) {
             var title = document.createElement('h3');
             title.classList.add('stop-title')
             title.textContent = edge.node.stop.name + " (" + distance(start_lat, start_lon, lat, lon) + "m)";
-            container.appendChild(title);
 
             var list = document.createElement('ul');
             list.classList.add('stop-list');
@@ -536,14 +659,24 @@ function createMap(sheetData) {
               }
 
               return 0;
-            }).splice(0, 4).forEach(function (item) {
+            }).splice(0, 3).forEach(function (item) {
               var listItem = document.createElement('li');
               listItem.classList.add('stop-list-item');
               listItem.textContent = (item.time + '  |  ' + item.name);
               list.appendChild(listItem);
             });
 
-            container.appendChild(list);
+            if (list.textContent != "") {
+              container.appendChild(title);
+              container.appendChild(list);
+            }
+
+            if (container.textContent === "") {
+              container.textContent = "No stop times available for " + edge.node.stop.name;
+              console.warn("No stop times available for " + edge.node.stop.name);
+            }
+
+
             container.appendChild(br);
             fragment.appendChild(container);
 
@@ -579,39 +712,46 @@ function createMarker(place) {
   });
 }
 
+
 // Google Sheets -tietokantahaku
-fetch("https://sheets.googleapis.com/v4/spreadsheets/1oOiSqkOp_WEj7f21opfQzqpozwEHTb-K9YES7p-Ib8g/values/A3%3AB3?fields=values&key=AIzaSyAsKit0QXl6tApOMluYh8do3jaKrwfyUxs")
+fetch("https://sheets.googleapis.com/v4/spreadsheets/1oOiSqkOp_WEj7f21opfQzqpozwEHTb-K9YES7p-Ib8g/values/A1%3AC1000?fields=values&key=AIzaSyAsKit0QXl6tApOMluYh8do3jaKrwfyUxs")
   .then(getJson)
   .then(createMap)
   .catch(handleError);
 
 
-
 // FOOTER VIDEO
 
-$(document).ready(function () {
 
-  $.ajax({
-    type: "POST",
-    url: "video.json",
-    contentType: 'application/json; charset=utf-8',
-    success: function (video) {
-      var mainos = document.getElementById('video');
-
-      if (video.video === "") {
-        console.log("Playing default video from " + video.default);
-        mainos.src = video.default;
-      } else {
-        console.log("Playing custom video from " + video.video);
-        mainos.src = video.video;
-      }
-    },
-    error: function () {
-      console.error("Error playing video.");
+function getBannerVideo(videoData) {
+  videoData = videoData.values.filter(value => Object.keys(value).length !== 0).map((array) => {
+    if (array.length === 1) {
+      return array[0];
     }
+    return array;
   });
-});
 
+  console.log(videoData);
+  $('.ytvideo').css('margin-top', videoData[1]);
+
+  var defaultVideoId = videoData[3].slice(32);
+  var defaultVideo = videoData[3].replace("watch?v=", "embed/") + "?autoplay=1&loop=1&rel=0&amp;controls=0&amp;showinfo=0&disablekb=1&modestbranding=1&mute=1&playlist=" + defaultVideoId;
+
+  if (!videoData[5]) {
+    document.getElementById("video").src = defaultVideo;
+  } else {
+    var customVideoId = videoData[5].slice(32);
+    var customVideo = videoData[5].replace("watch?v=", "embed/") + "?autoplay=1&loop=1&rel=0&amp;controls=0&amp;showinfo=0&disablekb=1&modestbranding=1&mute=1&playlist=" + customVideoId;
+    document.getElementById("video").src = customVideo;
+  }
+
+  // var videoData = videoData.slice(videoData.indexOf('DEFAULT VIDEO (Sohjoa -projektin mainosvideo)') + 1, videoData.indexOf('OMA VIDEO'));
+}
+
+fetch("https://sheets.googleapis.com/v4/spreadsheets/1oOiSqkOp_WEj7f21opfQzqpozwEHTb-K9YES7p-Ib8g/values/BANNERIVIDEO!A1%3AC1000?fields=values&key=AIzaSyAsKit0QXl6tApOMluYh8do3jaKrwfyUxs")
+  .then(getJson)
+  .then(getBannerVideo)
+  .catch(handleError);
 
 
 
@@ -629,34 +769,3 @@ document.addEventListener("keyup", function (event) {
     document.getElementById("langbtn").click();
   }
 });
-
-/* $(document).ready(function(){
-      //  $( "#target" ).keypress(function() {
-      //console.log( "Handler for .keypress() called." );
-    //});
-
-        $(document).keypress(function(e){
-        var checkMoz1=(e.which==49 ? 1 : 0);
-        var checkMoz2=(e.which==50 ? 1 : 0);
-        var checkMoz3=(e.which==51 ? 1 : 0);
-        var checkMoz4=(e.which==52 ? 1 : 0);
-        var checkMoz5=(e.which==53 ? 1 : 0);
-        var checkMoz6=(e.which==54 ? 1 : 0);
-        
-        if (checkMoz1) {
-        } else if(checkMoz2){ $("body").append("<p>painoit 2</p>");
-        }
-
-        else if (checkMoz3) {$("body").append("<p>painoit 3</p>");
-        }
-        
-        else if (checkMoz4) {$("body").append("<p>painoit 4</p>");
-        }
-        
-        else if (checkMoz5) {$("body").append("<p>painoit 5</p>");
-        }
-        
-        else if (checkMoz6) {$("body").append("<p>painoit 6</p>");
-        }
-    });
-});*/

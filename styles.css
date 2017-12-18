@@ -9,15 +9,11 @@ Violetti (aksenttiväri): #7470BC
 
 body {
   margin: auto;
-  height: 1980px !important;
-  width: 1080px !important;
+  height: 100vh !important;
+  width: 100% !important;
   position: relative;
   font-family: "Nunito";
   overflow: hidden;
-}
-
-.container-fluid {
-  background-color: #191919;
 }
 
 
@@ -28,27 +24,52 @@ body {
 /* YLÄBANNERI, KELLO & TIEDOITTEET */
 
 .ylapalkki {
-  height: 200px;
+  height: 220px;
   width: 100%;
   z-index: 100 !important;
   position: relative;
 }
 
 #yla {
-  height: 150px;
+  height: 170px;
   background-color: #191919;
   color: #fff;
 }
 
 #klo {
-  margin-top: -10px !important;
+  margin-top: -25px !important;
   font-family: "Segoe UI";
   font-size: 110px;
   font-weight: 500;
   text-shadow: none;
-  letter-spacing: 8px;
+  letter-spacing: 6px;
   color: #fff;
-  margin: auto;
+}
+
+#klo,
+#date {
+  width: 100%;
+  text-align: center;
+}
+
+#date {
+  font-family: "Nunito";
+  font-size: 25px;
+  letter-spacing: 1px;
+  margin-top: -25px !important;
+}
+
+#weekday {
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  color: #7470BC;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+#fulldate,
+#weekday {
+  display: inline;
 }
 
 .klopic {
@@ -57,12 +78,12 @@ body {
 
 #klo1 {
   margin-left: auto;
-  margin-right: -12em;
+  margin-right: -16em;
 }
 
 #klo2 {
   margin-right: auto;
-  margin-left: -12em;
+  margin-left: -16em;
 }
 
 .tied {
@@ -86,14 +107,14 @@ body {
 #naytons {
   z-index: 10;
   position: absolute;
-  width: 1080x !important;
+  width: 100% !important;
   height: 1780px !important;
-  margin-left: -0.9em;
 }
 
 #map {
-  height: 1780px !important;
-  width: 1080px !important;
+  height: 90vh !important;
+  width: 102% !important;
+  margin-right: 0 !important;
   position: absolute;
   z-index: -10 !important;
 }
@@ -275,6 +296,11 @@ p {
   white-space: pre-wrap;
 }
 
+#busText {
+  color: #fff;
+  font-size: 30px;
+}
+
 #busHead {
   text-align: center;
 }
@@ -421,17 +447,37 @@ ul {
 
 footer {
   height: 320px;
-  width: 1080px !important;
+  min-width: 1080px !important;
   position: absolute;
   bottom: 0;
   background-color: #7470BC;
-  margin-left: -1px !important;
+  margin: auto !important;
   overflow: hidden;
   box-shadow: 0px -12px 30px -4px rgba(43, 43, 43, 0.4);
+  z-index: -1;
 }
 
 .ytvideo {
-  margin-top: -170px;
-  margin-left: -2px !important;
   pointer-events: none;
+}
+
+
+
+
+#gpsbtn {
+  color: #fff;
+  background-color: #7470BC;
+  height: 70px;
+  width: 300px;
+  border-radius: 0 0 20px 20px;
+  font-size: 23px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-top: 10px;
+}
+
+#gpsbtn:focus,
+#gpsbtn:active {
+  border: none !important;
+  outline: none !important;
 }
